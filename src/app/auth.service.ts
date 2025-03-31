@@ -32,7 +32,7 @@ export class AuthService {
 
   login(email: string, password: string, redirect?: string) {
     console.log(`Login - email: ${email}, password: ${password}`);
-    this.http.post<{"expiry": string, "token": string}>('http://localhost:8000/api/login/', {
+    this.http.post<{"expiry": string, "token": string}>('http://172.26.87.217:8000/api/login/', {
       "username": email,
       "password": password
     }).subscribe({
@@ -59,7 +59,7 @@ export class AuthService {
     console.log(`Checking token...`);
     this.getToken();
     console.log(this.token, this.tokenExpiry)
-    const res = this.http.get<{"user": string, "expiry": string}>('http://localhost:8000/api/validate-token/', {
+    const res = this.http.get<{"user": string, "expiry": string}>('http://172.26.87.217:8000/api/validate-token/', {
       headers: new HttpHeaders({"Authorization": "Token " + this.token})
     })
     res.subscribe({

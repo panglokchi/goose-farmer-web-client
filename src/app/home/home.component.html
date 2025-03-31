@@ -1,1 +1,55 @@
-<p>home works!</p>
+<div data-bs-theme="dark" class="bg-body text-body phasis vw-100 vh-100">
+    <style>
+        .custom-pills .active, .custom-pills .focus {
+            background-color: rgba(135, 135, 135, 0.393) !important;
+        }
+    </style>
+
+    <div class="d-flex h-100">
+        <div ngbNav #nav="ngbNav" [(activeId)]="active"
+            class="nav-pills custom-pills flex-column bg-body-secondary z-1"
+            orientation="vertical"
+            (mouseenter)="showPills()"
+            (mouseleave)="hidePills()"
+
+            >
+            
+            <button type="button" class="btn text-start m-1" style="border: none">
+                <div [hidden]="expand_pills" class="p-1">🪿</div>
+                <div [hidden]="!expand_pills" class="text-truncate p-1">
+                    🪿Goose Farmer
+                </div>
+            </button>
+
+            <ng-container ngbNavItem="top">
+                <button ngbNavLink class="m-1 text-start" [@show]="expand_pills ? 'shown' : 'hidden'">
+                    <div [hidden]="expand_pills">🏠</div>
+                    <div [hidden]="!expand_pills" class="text-truncate">
+                        🏠Home
+                    </div>
+                </button>
+            </ng-container>
+            <ng-container ngbNavItem="middle">
+                <button ngbNavLink class="m-1 text-start" [@show]="expand_pills ? 'shown' : 'hidden'">
+                    <div [hidden]="expand_pills">🪺</div>
+                    <div [hidden]="!expand_pills" class="text-truncate">
+                        🪺Coop
+                    </div>
+                </button>
+            </ng-container>
+            <ng-container ngbNavItem="bottom">
+                <button ngbNavLink class="m-1 text-start" [@show]="expand_pills ? 'shown' : 'hidden'">
+                    <div [hidden]="expand_pills">🪶</div>
+                    <div [hidden]="!expand_pills"  class="text-truncate">
+                        🪶Summon
+                    </div>
+                </button>
+            </ng-container>
+        </div>
+
+        <div class="position-absolute z-0" style="left: 4.5em">
+            Contents
+        </div>
+
+    </div> 
+</div>
