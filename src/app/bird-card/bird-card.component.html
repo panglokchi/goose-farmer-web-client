@@ -1,0 +1,38 @@
+<div class="bg-body-secondary rounded mb-1">
+    <div class="p-1 bg-body-tertiary rounded-top d-flex">
+        <h1 style="font-size: 5em" class="text-center flex-fill p-0 m-0">🪿</h1>
+        <div class="d-flex flex-column justify-content-between text-end">
+            <div>
+                Lvl. {{bird.level}}
+            </div>
+            <div [ngSwitch]="bird.stars">
+                <div *ngSwitchCase="'3'"><br><br>⭐⭐⭐</div>
+                <div *ngSwitchCase="'4'"><br>⭐<br>⭐⭐⭐</div>
+                <div *ngSwitchCase="'5'"><br>⭐⭐<br>⭐⭐⭐</div>
+                <div *ngSwitchCase="'6'"><br>⭐⭐⭐<br>⭐⭐⭐</div>
+                <div *ngSwitchCase="'7'">⭐<br>⭐⭐⭐<br>⭐⭐⭐</div>
+                <div *ngSwitchCase="'8'">⭐⭐<br>⭐⭐⭐<br>⭐⭐⭐</div>
+            </div>
+        </div>
+    </div>
+    <div class="p-2">
+        <h5 class="m-0 text-truncate">
+            {{bird.name}}
+        </h5>
+        <div class="fw-light text-body-secondary text-truncate">
+            {{bird.bird_type.species}}
+        </div>
+        <span *ngIf="bird.is_new">
+            <span class="badge text-bg-danger me-1">NEW!</span>
+        </span>
+        <span [ngSwitch]="bird.rarity">
+            <span *ngSwitchCase="'COMMON'" class="badge text-bg-secondary">common</span>
+            <span *ngSwitchCase="'RARE'" class="badge text-bg-primary">rare</span>
+            <span *ngSwitchCase="'EPIC'" class="badge text-bg-danger">epic</span>
+            <span *ngSwitchCase="'LEGENDARY'" class="badge text-bg-warning">legendary</span>
+        </span>
+        <div class="mt-1">
+            {{bird.weight}} kg
+        </div>
+    </div>
+</div>

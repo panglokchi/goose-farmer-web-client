@@ -63,20 +63,20 @@ export class AuthService {
       headers: new HttpHeaders({"Authorization": "Token " + this.token})
     })
     res.subscribe({
-        next: (res) => {
-          console.log('res:', res);
-          console.log('saving token to localStorage')
-          this.saveToken();
-        },
-        error: (err) => {
-          console.log('err:', err)
-          console.log("error validating token")
-        },
-        complete: () => {
-          //this.authenticated = true
-          console.log("token validated")
-        }
-      });
-      return res;
+      next: (res) => {
+        console.log('res:', res);
+        console.log('saving token to localStorage')
+        this.saveToken();
+      },
+      error: (err) => {
+        console.log('err:', err)
+        console.log("error validating token")
+      },
+      complete: () => {
+        //this.authenticated = true
+        console.log("token validated")
+      }
+    });
+    return res;
   }
 }

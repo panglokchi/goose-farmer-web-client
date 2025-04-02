@@ -1,4 +1,4 @@
-<div data-bs-theme="dark" class="bg-body text-body phasis vw-100 vh-100">
+<div data-bs-theme="dark" class="bg-body text-body vh-100">
     <style>
         .custom-pills .active, .custom-pills .focus {
             background-color: rgba(135, 135, 135, 0.393) !important;
@@ -29,7 +29,7 @@
                     </div>
                 </button>
             </ng-container>
-            <ng-container ngbNavItem="middle">
+            <ng-container ngbNavItem="birdList">
                 <button ngbNavLink class="m-1 text-start" [@show]="expand_pills ? 'shown' : 'hidden'">
                     <div [hidden]="expand_pills">🪺</div>
                     <div [hidden]="!expand_pills" class="text-truncate">
@@ -48,8 +48,10 @@
         </div>
 
         <div class="position-absolute z-0" style="left: 4.5em">
-            Contents
+            <ng-container *ngComponentOutlet="getContent(); inputs: inputs" />
+            <p>{{active}}</p>
         </div>
+
 
     </div> 
 </div>

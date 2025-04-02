@@ -1,6 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { NgComponentOutlet } from '@angular/common';
+import { BirdListComponent } from '../bird-list/bird-list.component';
+
+@Component({
+  selector: 'placeholder',
+  animations: [
+  ],
+  imports: [],
+  template: '<p>placeholder {{value}}</p>',
+})
+export class Placeholder {
+  @Input() value: string = "aa";
+}
 
 @Component({
   selector: 'app-home',
@@ -21,13 +34,14 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
       transition('hidden => shown', [animate('0.1s')]),
     ])
   ],
-  imports: [NgbNavModule],
+  imports: [NgbNavModule, NgComponentOutlet],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  active = 'top';
+  _active: string | null = 'top';
   expand_pills = false;
+  inputs = { value: this.active }
 
   togglePills() {
     this.expand_pills = !this.expand_pills;
@@ -39,5 +53,25 @@ export class HomeComponent {
 
   hidePills() {
     this.expand_pills = false;
+  }
+
+  public get active(): string | null {
+    return this._active;
+  }
+  public set active(v: string) {
+    this._active = v
+    this.inputs = { value: this._active }
+    localStorage.setItem('homeTab', this._active)
+  }
+
+  getContent() {
+    if (this.active == 'birdList') {
+      return BirdListComponent;
+    }
+    return Placeholder;
+  }
+
+  constructor() {
+    this._active = localStorage.getItem('homeTab')
   }
 }
