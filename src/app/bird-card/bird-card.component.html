@@ -1,4 +1,4 @@
-<div class="bg-body-secondary rounded mb-1">
+<div class="bg-body-secondary rounded mb-1" [hidden]="!visible">
     <div class="p-1 bg-body-tertiary rounded-top d-flex">
         <h1 style="font-size: 5em" class="text-center flex-fill p-0 m-0">🪿</h1>
         <div class="d-flex flex-column justify-content-between text-end">
@@ -33,6 +33,21 @@
         </span>
         <div class="mt-1">
             {{bird.weight}} kg
+        </div>
+
+        <div *ngIf="bird.assigned_to_coop" class="d-flex flex-row align-items-center">
+            <div>
+                🥚
+            </div>
+            <div class="flex-fill position-relative" *ngIf="bird.egg_timer != 0">
+                <div class="position-absolute top-50 start-50 translate-middle text-truncate">
+                    {{egg_bar_string}}
+                </div>
+                <ngb-progressbar class="bg-body-tertiary" type="primary" [striped]="true" [animated]="true" [value]="this.egg_bar" />
+            </div>
+            <div class="flex-fill position-relative" *ngIf="bird.egg_timer == 0">
+                <button type="button" class="w-100 btn btn-success m-0 p-0" >Collect</button>
+            </div>
         </div>
     </div>
 </div>

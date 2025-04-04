@@ -1,6 +1,7 @@
 import { Injectable, afterRender } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Bird } from './bird';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,16 @@ export class GameService {
     return this.http.get('http://172.26.87.217:8000/api/player/birds',{
       headers: new HttpHeaders({"Authorization": "Token " + this.token})
     })
+  }
+
+  summonBird(count: number): Observable<Bird> {
+    console.log(`summon bird`);
+    return this.http.post('http://172.26.87.217:8000/api/summon',
+      {
+        times: count
+      },
+      {
+        headers: new HttpHeaders({"Authorization": "Token " + this.token})
+    }) as Observable<Bird>
   }
 }

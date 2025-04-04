@@ -13,10 +13,13 @@ export class BirdListComponent {
   @Input() value: any = null;
   gameService = inject(GameService)
   public birdList: any;
+  public birdListActive: any;
   constructor() {
     this.birdList = this.gameService.getBirdList().subscribe({
       next: res => {
-        this.birdList = res;
+        this.birdList = res.filter((b: any) => b.assigned_to_coop == false);
+        this.birdListActive = res.filter((b: any) => b.assigned_to_coop == true);
+        console.log(this.birdListActive)
         console.log(this.birdList)
       }
     });

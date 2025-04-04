@@ -3,6 +3,7 @@ import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { NgComponentOutlet } from '@angular/common';
 import { BirdListComponent } from '../bird-list/bird-list.component';
+import { SummonBirdComponent } from '../summon-bird/summon-bird.component';
 
 @Component({
   selector: 'placeholder',
@@ -67,6 +68,8 @@ export class HomeComponent {
   getContent() {
     if (this.active == 'birdList') {
       return BirdListComponent;
+    } else if (this.active == 'summonBird') {
+      return SummonBirdComponent;
     }
     return Placeholder;
   }
