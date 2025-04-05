@@ -46,15 +46,18 @@
         <div class="m-0 text-truncate placeholder-glow" [hidden]="bird.bird_type != null">
             <span class="placeholder col-7"></span>
         </div>
-        <span *ngIf="bird.is_new">
-            <span class="badge text-bg-danger me-1">NEW!</span>
-        </span>
-        <span [ngSwitch]="bird.rarity">
-            <span *ngSwitchCase="'COMMON'" class="badge text-bg-secondary">common</span>
-            <span *ngSwitchCase="'RARE'" class="badge text-bg-primary">rare</span>
-            <span *ngSwitchCase="'EPIC'" class="badge text-bg-danger">epic</span>
-            <span *ngSwitchCase="'LEGENDARY'" class="badge text-bg-warning">legendary</span>
-        </span>
+        <div class="overflow-hidden d-flex">
+            <span *ngIf="bird.is_new">
+                <span class="badge text-bg-danger me-1">NEW!</span>
+            </span>
+            <span [ngSwitch]="bird.rarity">
+                <span *ngSwitchCase="'COMMON'" class="badge text-bg-secondary">common</span>
+                <span *ngSwitchCase="'RARE'" class="badge text-bg-primary">rare</span>
+                <span *ngSwitchCase="'EPIC'" class="badge text-bg-danger">epic</span>
+                <span *ngSwitchCase="'LEGENDARY'" class="badge text-bg-warning">legendary</span>
+            </span>
+        </div>
+
         <div class="mt-1" [hidden]="bird.weight == null">
             {{bird.weight}} kg
         </div>
