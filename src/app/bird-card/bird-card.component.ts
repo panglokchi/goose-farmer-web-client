@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common'
-import { Bird } from '../bird';
+import { Bird } from '../interfaces/bird';
 import { NgbProgressbar } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({

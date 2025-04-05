@@ -1,8 +1,8 @@
 import { Component, inject, input, Input, HostListener } from '@angular/core';
-import { GameService } from '../game.service';
+import { GameService } from '../services/game.service';
 import { CommonModule } from '@angular/common';
 import { BirdCardComponent } from '../bird-card/bird-card.component';
-import { Bird } from '../bird';
+import { Bird } from '../interfaces/bird';
 import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -47,7 +47,7 @@ export class BirdListComponent {
   //  this.updatePagination();
   //}
   // not working
-  
+
   constructor() {
     this.updatePagination();
 

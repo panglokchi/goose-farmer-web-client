@@ -1,7 +1,8 @@
 import { Injectable, afterRender } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Bird } from './bird';
+import { Bird } from '../interfaces/bird';
+import { Player } from '../interfaces/player';
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +37,11 @@ export class GameService {
       {
         headers: new HttpHeaders({"Authorization": "Token " + this.token})
     }) as Observable<Bird[]>
+  }
+
+  getPlayerInfo(username?: string): Observable<Player> {
+    return this.http.get<Player>('http://172.26.87.217:8000/api/player/',{
+      headers: new HttpHeaders({"Authorization": "Token " + this.token})
+    })
   }
 }
