@@ -2,6 +2,7 @@ import { Component, inject, input, Input } from '@angular/core';
 import { GameService } from '../game.service';
 import { CommonModule } from '@angular/common';
 import { BirdCardComponent } from '../bird-card/bird-card.component';
+import { Bird } from '../bird';
 
 @Component({
   selector: 'app-bird-list',
@@ -12,10 +13,10 @@ import { BirdCardComponent } from '../bird-card/bird-card.component';
 export class BirdListComponent {
   @Input() value: any = null;
   gameService = inject(GameService)
-  public birdList: any;
-  public birdListActive: any;
+  public birdList: Bird[] = [];
+  public birdListActive: Bird[] = [];
   constructor() {
-    this.birdList = this.gameService.getBirdList().subscribe({
+    this.gameService.getBirdList().subscribe({
       next: res => {
         this.birdList = res.filter((b: any) => b.assigned_to_coop == false);
         this.birdListActive = res.filter((b: any) => b.assigned_to_coop == true);

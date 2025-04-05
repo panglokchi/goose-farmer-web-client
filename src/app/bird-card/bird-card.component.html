@@ -1,8 +1,26 @@
-<div class="bg-body-secondary rounded mb-1" [hidden]="!visible">
-    <div class="p-1 bg-body-tertiary rounded-top d-flex">
-        <h1 style="font-size: 5em" class="text-center flex-fill p-0 m-0">🪿</h1>
+<style>
+    .bird-card {
+        border: 1px solid transparent
+    }
+</style>
+<style type="text/css" *ngIf="hoverEffect">
+    .bird-card:hover {
+        border: 1px solid #777;
+        filter: brightness(130%)
+    }
+</style>
+<style type="text/css" *ngIf="clickEffect">
+    .bird-card:active {
+        border: 1px solid #777;
+        filter: brightness(130%)
+    }
+</style>
+<div class="bird-card h-100 d-flex flex-column rounded" [hidden]="!visible" ontouchstart="">
+    <div class="p-1 bg-body-tertiary rounded-top d-flex flex-fill">
+        <h1 style="font-size: 5em" class="text-center flex-fill p-0 m-0" *ngIf="bird.icon == '' || bird.icon == null">🪿</h1>
+        <h1 style="font-size: 5em" class="text-center flex-fill p-0 m-0" *ngIf="bird.icon != null">{{bird.icon}}</h1>
         <div class="d-flex flex-column justify-content-between text-end">
-            <div>
+            <div [hidden]="bird.weight == null">
                 Lvl. {{bird.level}}
             </div>
             <div [ngSwitch]="bird.stars">
@@ -15,12 +33,18 @@
             </div>
         </div>
     </div>
-    <div class="p-2">
+    <div class="p-2 bg-body-secondary rounded-bottom">
         <h5 class="m-0 text-truncate">
             {{bird.name}}
         </h5>
+        <h5 class="m-0 text-truncate placeholder-glow" [hidden]="bird.name != null">
+            <span class="placeholder col-8"></span>
+        </h5>
         <div class="fw-light text-body-secondary text-truncate">
-            {{bird.bird_type.species}}
+            {{bird.bird_type?.species}}
+        </div>
+        <div class="m-0 text-truncate placeholder-glow" [hidden]="bird.bird_type != null">
+            <span class="placeholder col-7"></span>
         </div>
         <span *ngIf="bird.is_new">
             <span class="badge text-bg-danger me-1">NEW!</span>
@@ -31,8 +55,11 @@
             <span *ngSwitchCase="'EPIC'" class="badge text-bg-danger">epic</span>
             <span *ngSwitchCase="'LEGENDARY'" class="badge text-bg-warning">legendary</span>
         </span>
-        <div class="mt-1">
+        <div class="mt-1" [hidden]="bird.weight == null">
             {{bird.weight}} kg
+        </div>
+        <div class="mt-1 placeholder-glow" [hidden]="bird.weight == null" [hidden]="bird.weight != null">
+            <span class="placeholder col-3"></span>
         </div>
 
         <div *ngIf="bird.assigned_to_coop" class="d-flex flex-row align-items-center">

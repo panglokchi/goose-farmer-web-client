@@ -15,6 +15,8 @@ export class BirdCardComponent implements OnInit {
   @Input() placeholder = false;
   public egg_bar = 50;
   public egg_bar_string = "";
+  @Input() hoverEffect = true;
+  @Input() clickEffect = true;
 
   formatDuration(seconds: number): string {
     // Calculate hours, minutes, and seconds
@@ -43,15 +45,8 @@ export class BirdCardComponent implements OnInit {
   ngOnInit() {
     if(this.bird == null) {
       this.bird = {
-        name: "Placeholder",
-        level: 1,
-        stars: 3,
-        bird_type: {
-            species: "Placeholder"
-        },
-        weight: 1
+        icon: '🪺',
       }
-      this.visible = false
     }
     this.egg_bar = this.bird.egg_timer/86400 * 100
     this.egg_bar_string = this.formatDuration(this.bird.egg_timer)

@@ -22,19 +22,19 @@ export class GameService {
 
   getBirdList(): Observable<any> {
     console.log(`get bird list`);
-    return this.http.get('http://172.26.87.217:8000/api/player/birds',{
+    return this.http.get<Bird>('http://172.26.87.217:8000/api/player/birds',{
       headers: new HttpHeaders({"Authorization": "Token " + this.token})
     })
   }
 
-  summonBird(count: number): Observable<Bird> {
+  summonBird(count: number): Observable<Bird[]> {
     console.log(`summon bird`);
-    return this.http.post('http://172.26.87.217:8000/api/summon',
+    return this.http.post<Bird[]>('http://172.26.87.217:8000/api/summon',
       {
         times: count
       },
       {
         headers: new HttpHeaders({"Authorization": "Token " + this.token})
-    }) as Observable<Bird>
+    }) as Observable<Bird[]>
   }
 }
