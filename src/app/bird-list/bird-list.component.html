@@ -3,30 +3,30 @@
         <h4 class="mt-1">Farm</h4>
         <div class="row overflow-auto gy-0 gy-lg-1 gy-xl-2 gx-0 gx-lg-1 gx-xl-2 row-cols-2 row-cols-sm-3 row-cols-lg-6 row-cols-xl-6">
             <div class="" *ngFor="let bird of birdListActive">
-                <app-bird-card [bird]="bird" (click)="open(bird)"></app-bird-card>
+                <app-bird-card [bird]="bird" [onClickCard]="open" [updatePlayerInfo]="updatePlayerData" [updateBirdList]="updateBirdList"></app-bird-card>
             </div>
 
-            <div class="h-100" *ngIf="birdListActive.length < 1">
-                <app-bird-card [bird]="{icon: '🪹', name:'Empty Spot'}"></app-bird-card>
+            <div *ngIf="birdListActive.length < 1">
+                <app-bird-card [bird]="{icon: '🪹', name:'Empty Spot', assigned_to_coop: true}" [placeholder]="true"></app-bird-card>
             </div>
 
             <div *ngIf="birdListActive.length < 2">
-                <app-bird-card [bird]="{icon: '🪹', name:'Empty Spot'}"></app-bird-card>
+                <app-bird-card [bird]="{icon: '🪹', name:'Empty Spot', assigned_to_coop: true}" [placeholder]="true"></app-bird-card>
             </div>
             <div *ngIf="birdListActive.length < 3">
-                <app-bird-card [bird]="{icon: '🪹', name:'Empty Spot'}"></app-bird-card>
+                <app-bird-card [bird]="{icon: '🪹', name:'Empty Spot', assigned_to_coop: true}" [placeholder]="true"></app-bird-card>
             </div>
 
             <div *ngIf="birdListActive.length < 4">
-                <app-bird-card [bird]="{icon: '🪹', name:'Empty Spot'}"></app-bird-card>
+                <app-bird-card [bird]="{icon: '🪹', name:'Empty Spot', assigned_to_coop: true}" [placeholder]="true"></app-bird-card>
             </div>
 
             <div *ngIf="birdListActive.length < 5">
-                <app-bird-card [bird]="{icon: '🪹', name:'Empty Spot'}"></app-bird-card>
+                <app-bird-card [bird]="{icon: '🪹', name:'Empty Spot', assigned_to_coop: true}" [placeholder]="true"></app-bird-card>
             </div>
 
             <div *ngIf="birdListActive.length < 6">
-                <app-bird-card [bird]="{icon: '🪹', name:'Empty Spot'}"></app-bird-card>
+                <app-bird-card [bird]="{icon: '🪹', name:'Empty Spot', assigned_to_coop: true}" [placeholder]="true"></app-bird-card>
             </div>
 
             <div class="" *ngFor="let x of [].constructor(12)">
@@ -45,7 +45,7 @@
 
             <div class="" *ngFor="let bird of birdList.slice((currentPage-1) * paginationElements, currentPage * paginationElements)">
                 <div>
-                    <app-bird-card [bird]="bird" (click)="open(bird)"></app-bird-card>
+                    <app-bird-card [bird]="bird" (click)="open(bird)" ></app-bird-card>
                 </div>
             </div>
         </div>

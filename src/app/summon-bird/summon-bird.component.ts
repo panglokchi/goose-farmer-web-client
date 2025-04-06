@@ -13,7 +13,9 @@ import { Bird } from '../interfaces/bird';
 export class SummonBirdComponent {
   @Input() value: any = null;
   gameService = inject(GameService)
-  @Input() birdList: (Bird|null)[] = new Array(10);
+  @Input() birdList: any[] = new Array(10).fill({
+    icon: '🪺',
+  });
 
   constructor(@Inject('updatePlayerInfo') public updatePlayerData: any) {
     console.log(updatePlayerData)

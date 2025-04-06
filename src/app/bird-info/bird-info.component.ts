@@ -17,7 +17,7 @@ export class BirdInfoComponent {
   @Input() updateBirdList: any;
   @Input() updatePlayerInfo: any;
 
-  _Bird: Bird = {
+  _bird: Bird = {
     id: 0,
     name: 'Placeholder',
     level: 1,
@@ -32,18 +32,23 @@ export class BirdInfoComponent {
     last_level_exp: 0,
     next_level_exp: 100,
     egg_amount: 1,
-    assigned_to_coop: false
+    assigned_to_coop: false,
+    egg_timer: 86400,
+    is_new: false,
+    rarity: "COMMON",
+    egg_timer_max: 86400
   }
 
 	@Input() public get bird(): Bird {
-    return this._Bird;
+    return this._bird;
   }
 
   public set bird(bird: Bird) {
-    this._Bird = bird;
+    this._bird = bird;
   }
 
   activateBird(active: boolean) {
+    this.activeModal.close();
     this.gameService.activateBird(this.bird.id, active).subscribe({
       next: (res) => {
         this.updateBirdList();

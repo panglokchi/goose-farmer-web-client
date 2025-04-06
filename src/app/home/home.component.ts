@@ -6,6 +6,7 @@ import { BirdListComponent } from '../bird-list/bird-list.component';
 import { SummonBirdComponent } from '../summon-bird/summon-bird.component';
 import { Player } from '../interfaces/player';
 import { GameService } from '../services/game.service';
+import { MissionsComponent } from '../missions/missions.component';
 
 @Component({
   selector: 'placeholder',
@@ -100,6 +101,8 @@ export class HomeComponent {
       return BirdListComponent;
     } else if (this.active == 'summonBird') {
       return SummonBirdComponent;
+    } else if (this.active == 'missions') {
+      return MissionsComponent;
     }
     return Placeholder;
   }
@@ -151,7 +154,6 @@ export class HomeComponent {
           this.onAppleChange(res.feed as number - this.player.feed as number, 1500)
         }
         if (this.player?.summons) {
-          console.log("a")
           this.onFeatherChange(res.summons as number - this.player.summons as number, 1500)
         }
 

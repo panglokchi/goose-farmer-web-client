@@ -47,7 +47,7 @@ export class BirdListComponent {
     this.paginationElements = px * py;
   }
 
-  updateBirdList() {
+  updateBirdList = () => {
     console.log("updating bird list")
     this.gameService.getBirdList().subscribe({
       next: res => {
@@ -69,7 +69,7 @@ export class BirdListComponent {
 
 
 
-  open(bird: Bird) {
+  open = (bird: Bird) => {
     this.modalRef = this.modalService.open(BirdInfoComponent, { centered: true })
     this.modalRef.componentInstance.bird = bird;
     this.birdModalId = bird.id;
@@ -77,7 +77,7 @@ export class BirdListComponent {
     this.modalRef.componentInstance.updatePlayerInfo = () => {console.log("update player info"); this.updatePlayerData()};
   }
 
-  constructor(@Inject('updatePlayerInfo') public updatePlayerData: any) {
+  constructor(@Inject('updatePlayerInfo') public updatePlayerData: () => void) {
     this.updatePagination();
 
     this.updateBirdList();
