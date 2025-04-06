@@ -1,0 +1,54 @@
+<div data-bs-theme="dark" class="bg-body text-body rounded">
+    <div class="modal-header border">
+        <h4 class="modal-title">Information</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body border-start border-end" >
+        <div class="row row-cols-1 row-cols-sm-2">
+            <div>
+                <app-bird-card [bird]="bird" [interactive]="false"/>
+            </div>
+            <div>
+                <div class="d-flex flex-column">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            Health
+                        </div>
+                        <div>
+                            {{bird.health}}/100
+                        </div>
+                    </div>
+                    <div>
+                        <ngb-progressbar class="bg-body-tertiary" type="danger" [animated]="true" [value]="bird.health" />
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            Exp
+                        </div>
+                        <div>
+                            {{bird.exp - bird.last_level_exp}}/{{bird.next_level_exp}}
+                        </div>
+                    </div>
+                    <div>
+                        <ngb-progressbar class="bg-body-tertiary" type="primary" [animated]="true" [value]="(bird.exp - bird.last_level_exp)/bird.next_level_exp*100" />
+                    </div>
+                    <div class="d-flex justify-content-between mt-2">
+                        
+                        <button type="button" class="btn flex-fill btn-success ">Feed</button>
+                        <button type="button" class="btn flex-fill btn-success ms-1">Feed</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer border">
+        <button type="button" class="btn btn-primary me-auto">Release</button>
+        <button type="button" class="btn btn-primary me-1"
+            (click)="activateBird(bird.id, true)" *ngIf="bird.assigned_to_coop==false">
+            Add to Farm</button>
+        <button type="button" class="btn btn-primary me-1"
+            (click)="activateBird(bird.id, false)" *ngIf="bird.assigned_to_coop==true">
+            Remove from Farm</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close('Close click')">Close</button>
+    </div>
+</div>

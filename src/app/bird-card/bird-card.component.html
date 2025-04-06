@@ -3,20 +3,17 @@
         border: 1px solid transparent
     }
 </style>
-<style type="text/css" *ngIf="hoverEffect">
-    .bird-card:hover {
+<style type="text/css" >
+    .interactive:hover, .interactive:active {
         border: 1px solid #777;
         filter: brightness(130%)
     }
 </style>
-<style type="text/css" *ngIf="clickEffect">
-    .bird-card:active {
-        border: 1px solid #777;
-        filter: brightness(130%)
-    }
-</style>
-<div class="bird-card h-100 d-flex flex-column rounded" [hidden]="!visible" ontouchstart="">
-    <div class="p-1 bg-body-tertiary rounded-top d-flex flex-fill">
+<div class="bird-card d-flex flex-column rounded" style="height: 100%"
+    [hidden]="!visible" ontouchstart=""
+    [ngClass]="{'interactive': interactive}"
+    >
+    <div class="p-1 bg-body-tertiary rounded-top d-flex">
         <h1 style="font-size: 5em" class="text-center flex-fill p-0 m-0" *ngIf="bird.icon == '' || bird.icon == null">🪿</h1>
         <h1 style="font-size: 5em" class="text-center flex-fill p-0 m-0" *ngIf="bird.icon != null">{{bird.icon}}</h1>
         <div class="d-flex flex-column justify-content-between text-end">
@@ -33,7 +30,7 @@
             </div>
         </div>
     </div>
-    <div class="p-2 bg-body-secondary rounded-bottom">
+    <div class="p-2 bg-body-secondary rounded-bottom flex-fill">
         <h5 class="m-0 text-truncate">
             {{bird.name}}
         </h5>

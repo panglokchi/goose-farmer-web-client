@@ -1,9 +1,10 @@
-import { Component, inject, input, Input, HostListener } from '@angular/core';
+import { Component, inject, input, Input } from '@angular/core';
 import { GameService } from '../services/game.service';
 import { CommonModule } from '@angular/common';
 import { BirdCardComponent } from '../bird-card/bird-card.component';
+import { BirdInfoComponent } from '../bird-info/bird-info.component';
 import { Bird } from '../interfaces/bird';
-import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-bird-list',
@@ -14,10 +15,15 @@ import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 export class BirdListComponent {
   @Input() value: any = null;
   gameService = inject(GameService)
+  modalService = inject(NgbModal)
+
   public birdList: Bird[] = [];
   public birdListActive: Bird[] = [];
   public paginationElements: number = 12;
   public currentPage: number = 1;
+
+  public birdModalId: number = 0;
+  public modalRef: NgbModalRef | null = null;
 
   Math = Math
   Array = Array
@@ -41,23 +47,32 @@ export class BirdListComponent {
     this.paginationElements = px * py;
   }
 
-  //@HostListener('window:resize', ['$event'])
-  //onResize(event: any) {
-  //  console.log("window resize")
-  //  this.updatePagination();
-  //}
-  // not working
-
-  constructor() {
-    this.updatePagination();
-
+  updateBirdList() {
+    console.log("updating bird list")
     this.gameService.getBirdList().subscribe({
       next: res => {
         this.birdList = res.filter((b: any) => b.assigned_to_coop == false);
         this.birdListActive = res.filter((b: any) => b.assigned_to_coop == true);
-        console.log(this.birdListActive)
-        console.log(this.birdList)
+        console.log("active: ", this.birdListActive)
+        console.log("inventory: ", this.birdList)
+        if(this.modalRef) {
+          const bird = [...this.birdList, ...this.birdListActive].find((e)=> e.id == this.birdModalId)
+          this.modalRef.componentInstance.bird = bird;
+        }
       }
     });
+  }
+
+  open(bird: Bird) {
+    this.modalRef = this.modalService.open(BirdInfoComponent, { centered: true })
+    this.modalRef.componentInstance.bird = bird;
+    this.birdModalId = bird.id;
+    this.modalRef.componentInstance.updateBirdList = () => {this.updateBirdList()}
+  }
+
+  constructor() {
+    this.updatePagination();
+
+    this.updateBirdList();
   }
 }

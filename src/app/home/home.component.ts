@@ -35,6 +35,22 @@ export class Placeholder {
       ),
       transition('shown => hidden', [animate('0.3s')]),
       transition('hidden => shown', [animate('0.1s')]),
+    ]),
+    trigger('fade', [
+      state(
+        'hidden',
+        style({
+          opacity: '0%'
+        }),
+      ),
+      state(
+        'shown',
+        style({
+          opacity: '100%'
+        }),
+      ),
+      transition('shown => hidden', [animate('0.3s')]),
+      transition('hidden => shown', [animate('0.1s')]),
     ])
   ],
   imports: [NgbNavModule, NgComponentOutlet, NgIf],
@@ -49,9 +65,12 @@ export class HomeComponent {
   updatePlayerInfoInjector: Injector;
   public ass = 1;
 
-  public egg_change: number = 0;
-  public feather_change: number = 0;
-  public apple_change: number = 0;
+  public eggChange: number = 0;
+  public featherChange: number = 0;
+  public appleChange: number = 0;
+  public showEggChange: boolean = false;
+  public showFeatherChange: boolean = false;
+  public showAppleChange: boolean = false;
 
   gameService = inject(GameService);
 
@@ -85,25 +104,30 @@ export class HomeComponent {
     return Placeholder;
   }
 
-  showEggChange = (value: number, time: number) => {
-    this.egg_change = value;
-    setInterval(()=>{
-      this.egg_change = 0;
+  onEggChange = (value: number, time: number) => {
+    if (value == 0) return;
+    this.showEggChange = true
+    this.eggChange = value;
+    setTimeout(()=>{
+      this.showEggChange = false
     }, time)
   }
 
-  showFeatherChange = (value: number, time: number) => {
-    console.log(value)
-    this.feather_change = value;
-    setInterval(()=>{
-      this.feather_change = 0;
+  onFeatherChange = (value: number, time: number) => {
+    if (value == 0) return;
+    this.showFeatherChange = true;
+    this.featherChange = value;
+    setTimeout(()=>{
+      this.showFeatherChange = false;
     }, time)
   }
 
-  showAppleChange = (value: number, time: number) => {
-    this.apple_change = value;
-    setInterval(()=>{
-      this.apple_change = 0;
+  onAppleChange = (value: number, time: number) => {
+    if (value == 0) return;
+    this.showAppleChange = true;
+    this.appleChange = value;
+    setTimeout(()=>{
+      this.showAppleChange = false;
     }, time)
   }
 
@@ -121,13 +145,14 @@ export class HomeComponent {
           this.showAppleChange(res.feed - this.player.feed, 10000)
         }*/
         if (this.player?.eggs) {
-          this.showEggChange(res.eggs as number - this.player.eggs as number, 3000)
+          this.onEggChange(res.eggs as number - this.player.eggs as number, 1500)
         }
         if (this.player?.feed) {
-          this.showAppleChange(res.feed as number - this.player.feed as number, 3000)
+          this.onAppleChange(res.feed as number - this.player.feed as number, 1500)
         }
         if (this.player?.summons) {
-          this.showFeatherChange(res.summons as number - this.player.summons as number, 3000)
+          console.log("a")
+          this.onFeatherChange(res.summons as number - this.player.summons as number, 1500)
         }
 
         this.player = res;

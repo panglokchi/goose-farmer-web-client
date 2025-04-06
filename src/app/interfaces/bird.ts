@@ -1,4 +1,5 @@
 export interface Bird {
+    id: number,
     name: string,
     level: number,
     stars: number,
@@ -6,5 +7,11 @@ export interface Bird {
     bird_type: {
         species: string
     },
-    weight: number
+    weight: number,
+    exp: number,
+    health: number,
+    last_level_exp: number,
+    next_level_exp: number,
+    egg_amount: number
+    assigned_to_coop: boolean
 }

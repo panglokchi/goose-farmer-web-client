@@ -44,4 +44,14 @@ export class GameService {
       headers: new HttpHeaders({"Authorization": "Token " + this.token})
     })
   }
+
+  activateBird(id: number, active: boolean): Observable<any> {
+    return this.http.post<Player>('http://172.26.87.217:8000/api/player/activate-bird',{
+      bird_id: id,
+      active: active
+    },
+    {
+      headers: new HttpHeaders({"Authorization": "Token " + this.token})
+    })
+  }
 }

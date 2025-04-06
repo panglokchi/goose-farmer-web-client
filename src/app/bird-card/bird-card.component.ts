@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common'
+import { NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault, NgClass } from '@angular/common'
 import { Bird } from '../interfaces/bird';
 import { NgbProgressbar } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-bird-card',
-  imports: [NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault, NgbProgressbar],
+  imports: [NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault, NgbProgressbar, NgClass],
   templateUrl: './bird-card.component.html',
   styleUrl: './bird-card.component.css'
 })
@@ -15,8 +15,7 @@ export class BirdCardComponent implements OnInit {
   @Input() placeholder = false;
   public egg_bar = 50;
   public egg_bar_string = "";
-  @Input() hoverEffect = true;
-  @Input() clickEffect = true;
+  @Input() interactive = true;
 
   formatDuration(seconds: number): string {
     // Calculate hours, minutes, and seconds
