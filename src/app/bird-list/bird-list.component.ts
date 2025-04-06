@@ -1,4 +1,4 @@
-import { Component, inject, input, Input } from '@angular/core';
+import { Component, inject, Inject, Input } from '@angular/core';
 import { GameService } from '../services/game.service';
 import { CommonModule } from '@angular/common';
 import { BirdCardComponent } from '../bird-card/bird-card.component';
@@ -57,20 +57,27 @@ export class BirdListComponent {
         console.log("inventory: ", this.birdList)
         if(this.modalRef) {
           const bird = [...this.birdList, ...this.birdListActive].find((e)=> e.id == this.birdModalId)
-          this.modalRef.componentInstance.bird = bird;
+          if(bird) { 
+            this.modalRef.componentInstance.bird = bird;
+          } else {
+            this.modalRef.close();
+          }
         }
       }
     });
   }
 
+
+
   open(bird: Bird) {
     this.modalRef = this.modalService.open(BirdInfoComponent, { centered: true })
     this.modalRef.componentInstance.bird = bird;
     this.birdModalId = bird.id;
-    this.modalRef.componentInstance.updateBirdList = () => {this.updateBirdList()}
+    this.modalRef.componentInstance.updateBirdList = () => {this.updateBirdList()};
+    this.modalRef.componentInstance.updatePlayerInfo = () => {console.log("update player info"); this.updatePlayerData()};
   }
 
-  constructor() {
+  constructor(@Inject('updatePlayerInfo') public updatePlayerData: any) {
     this.updatePagination();
 
     this.updateBirdList();

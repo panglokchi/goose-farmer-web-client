@@ -54,4 +54,23 @@ export class GameService {
       headers: new HttpHeaders({"Authorization": "Token " + this.token})
     })
   }
+
+  feedBird(id: number, amount: number): Observable<any> {
+    return this.http.post<Player>('http://172.26.87.217:8000/api/player/feed-bird',{
+      bird_id: id,
+      amount: amount
+    },
+    {
+      headers: new HttpHeaders({"Authorization": "Token " + this.token})
+    })
+  }
+
+  releaseBird(id: number): Observable<any> {
+    return this.http.post<Player>('http://172.26.87.217:8000/api/player/release-bird',{
+      bird_id: id,
+    },
+    {
+      headers: new HttpHeaders({"Authorization": "Token " + this.token})
+    })
+  }
 }

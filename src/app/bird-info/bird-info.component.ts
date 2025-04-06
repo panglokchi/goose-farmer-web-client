@@ -15,6 +15,7 @@ export class BirdInfoComponent {
 	activeModal = inject(NgbActiveModal);
   gameService = inject(GameService);
   @Input() updateBirdList: any;
+  @Input() updatePlayerInfo: any;
 
   _Bird: Bird = {
     id: 0,
@@ -42,12 +43,32 @@ export class BirdInfoComponent {
     this._Bird = bird;
   }
 
-  activateBird(id: number, active: boolean) {
-    this.gameService.activateBird(id, active).subscribe({
+  activateBird(active: boolean) {
+    this.gameService.activateBird(this.bird.id, active).subscribe({
       next: (res) => {
-        this.updateBirdList()
+        this.updateBirdList();
+        this.updatePlayerInfo();
+      }
+    });
+  };
+
+  feedBird(amount: number) {
+    this.gameService.feedBird(this.bird.id, amount).subscribe({
+      next: (res) => {
+        this.updateBirdList();
+        this.updatePlayerInfo();
+      }
+    });
+  };
+
+  releaseBird() {
+    this.activeModal.close();
+
+    this.gameService.releaseBird(this.bird.id).subscribe({
+      next: (res) => {
+        this.updateBirdList();
+        this.updatePlayerInfo();
       }
     });
   }
-
 }
