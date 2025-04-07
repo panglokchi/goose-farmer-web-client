@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Inject } from '@angular/core';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 import { Mission } from '../interfaces/mission';
 import { GameService } from '../services/game.service';
@@ -24,7 +24,17 @@ export class MissionsComponent {
     });
   }
 
-  constructor() {
+  public completeMission(id: number) {
+    this.gameService.completeMission(id).subscribe({
+      next: res => {
+        console.log(res);
+        this.getMissions();
+        this.updatePlayerData();
+      }
+    });
+  }
+
+  constructor(@Inject('updatePlayerInfo') public updatePlayerData: () => void) {
     this.getMissions();
   }
 

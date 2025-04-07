@@ -64,7 +64,6 @@ export class HomeComponent {
   inputs = { value: this.active }
   public player: Player | null = null;
   updatePlayerInfoInjector: Injector;
-  public ass = 1;
 
   public eggChange: number = 0;
   public featherChange: number = 0;

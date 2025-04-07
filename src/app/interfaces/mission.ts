@@ -11,5 +11,6 @@ export interface Mission {
     egg_reward: number;
     feed_reward: number;
     summon_reward: number;
-    player: number
+    player: number;
+    complete: boolean;
 }
