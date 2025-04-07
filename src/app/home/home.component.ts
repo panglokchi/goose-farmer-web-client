@@ -1,5 +1,5 @@
 import { Component, Input, inject, Injector } from '@angular/core';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbNavModule, NgbProgressbar } from '@ng-bootstrap/ng-bootstrap';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { NgComponentOutlet, NgIf } from '@angular/common';
 import { BirdListComponent } from '../bird-list/bird-list.component';
@@ -54,7 +54,7 @@ export class Placeholder {
       transition('hidden => shown', [animate('0.1s')]),
     ])
   ],
-  imports: [NgbNavModule, NgComponentOutlet, NgIf],
+  imports: [NgbNavModule, NgComponentOutlet, NgIf, NgbProgressbar],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -62,7 +62,17 @@ export class HomeComponent {
   _active: string | null = 'top';
   expand_pills = false;
   inputs = { value: this.active }
-  public player: Player | null = null;
+  public player: Player = {
+    user: {
+      username: 'User',
+      last_login: 'None',
+      date_joined: 'None'
+    },
+    level: 1,
+    exp: 0,
+    last_level_exp: 0,
+    next_level_exp: 100,
+  };
   updatePlayerInfoInjector: Injector;
 
   public eggChange: number = 0;

@@ -26,11 +26,11 @@
                             Exp
                         </div>
                         <div>
-                            {{bird.exp - bird.last_level_exp}}/{{bird.next_level_exp}}
+                            {{bird.exp - bird.last_level_exp}}/{{bird.next_level_exp - bird.last_level_exp}}
                         </div>
                     </div>
                     <div>
-                        <ngb-progressbar class="bg-body-tertiary" type="primary" [animated]="true" [value]="(bird.exp - bird.last_level_exp)/bird.next_level_exp*100" />
+                        <ngb-progressbar class="bg-body-tertiary" type="primary" [animated]="true" [value]="(bird.exp - bird.last_level_exp)/(bird.next_level_exp - bird.last_level_exp)*100" />
                     </div>
                     <div class="d-flex justify-content-between mt-2">
                         

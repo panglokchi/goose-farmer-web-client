@@ -110,6 +110,21 @@
  
             </div>
             <div style="margin-left: 4.5em">
+                <div class="flex-fill position-relative" >
+                    <div style="height: 1.5em">
+                        <div class="position-absolute top-50 start-50 translate-middle text-truncate d-flex justify-content-between w-100 pe-3">
+                            <div>
+                                Current XP {{player.exp - player.last_level_exp}}
+                            </div>
+                            <div>
+                                {{player.next_level_exp - player.last_level_exp}} to next level
+                            </div>
+                        </div>
+                    <ngb-progressbar class="bg-transparent" type="primary" style="border-radius: 0px; height: 2em; margin-left: -1em" [animated]="true" [value]="(player.exp - player.last_level_exp)/(player.next_level_exp - player.last_level_exp)*100" />
+
+                    </div>
+                </div>
+                
                 <ng-container *ngComponentOutlet="getContent(); inputs: inputs; injector: updatePlayerInfoInjector"/>
             </div>
 
