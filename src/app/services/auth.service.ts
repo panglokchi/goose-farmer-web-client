@@ -1,8 +1,7 @@
-import { Injectable, afterNextRender, afterRender } from '@angular/core';
+import { Injectable, afterRender } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, of, Subject } from 'rxjs';
-import { after } from 'node:test';
+import { Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,19 +18,27 @@ export class AuthService {
   };
 
   constructor(private http: HttpClient, private router: Router) {
+    /*
     afterRender(()=>{
       //this.authenticated$ = of(!!localStorage.getItem("token")) // also check expiry
       //console.log('isAuthenticated:', this.authenticated)
       this.saveToken = () => {
         localStorage.setItem('token', this.token as string)
         localStorage.setItem('tokenExpiry', this.tokenExpiry as string)
+        localStorage.setItem('homeTab', 'missions')
       }
       this.getToken();
     })
+    */
   }
 
   login(email: string, password: string, redirect?: string) {
     console.log(`Login - email: ${email}, password: ${password}`);
+    return this.http.post<{"expiry": string, "token": string}>('http://172.26.87.217:8000/api/login/', {
+      "username": email,
+      "password": password
+    })
+    /*
     this.http.post<{"expiry": string, "token": string}>('http://172.26.87.217:8000/api/login/', {
       "username": email,
       "password": password
@@ -53,6 +60,15 @@ export class AuthService {
         this.router.navigate([''])
       }
     });
+    */
+  }
+
+  signOut(token: string) {
+    return this.http.post<any>('http://172.26.87.217:8000/api/logout/', {
+
+    },{
+      headers: new HttpHeaders({"Authorization": "Token " + token})
+    })
   }
 
   validateToken(): Observable<{"user": string, "expiry": string}> {

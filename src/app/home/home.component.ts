@@ -1,5 +1,5 @@
-import { Component, Input, inject, Injector } from '@angular/core';
-import { NgbNavModule, NgbProgressbar } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, inject, Injector, OnInit, afterNextRender } from '@angular/core';
+import { NgbNavModule, NgbProgressbar, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { NgComponentOutlet, NgIf } from '@angular/common';
 import { BirdListComponent } from '../bird-list/bird-list.component';
@@ -7,6 +7,8 @@ import { SummonBirdComponent } from '../summon-bird/summon-bird.component';
 import { Player } from '../interfaces/player';
 import { GameService } from '../services/game.service';
 import { MissionsComponent } from '../missions/missions.component';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'placeholder',
@@ -54,11 +56,11 @@ export class Placeholder {
       transition('hidden => shown', [animate('0.1s')]),
     ])
   ],
-  imports: [NgbNavModule, NgComponentOutlet, NgIf, NgbProgressbar],
+  imports: [NgbNavModule, NgComponentOutlet, NgIf, NgbProgressbar, NgbDropdownModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   _active: string | null = 'top';
   expand_pills = false;
   inputs = { value: this.active }
@@ -83,6 +85,44 @@ export class HomeComponent {
   public showAppleChange: boolean = false;
 
   gameService = inject(GameService);
+  authService = inject(AuthService);
+
+  constructor(private injector: Injector, private router: Router) {
+    afterNextRender(() => {
+      this.updatePlayerInfo();
+      this._active = localStorage.getItem('homeTab') 
+    })
+
+
+    this.updatePlayerInfoInjector = Injector.create({
+      providers: [
+        {
+          provide: "updatePlayerInfo",
+          useValue: () => {this.updatePlayerInfo()}
+        }
+      ],
+      parent: this.injector
+    })
+  }
+
+  public signOut() {
+    const token = localStorage.getItem("token")
+    if(token != null) {
+      this.authService.signOut(token).subscribe({
+        next: (res) => {
+          localStorage.removeItem('homeTab')
+          localStorage.removeItem('token')
+          localStorage.removeItem('tokenExpiry')
+        },
+        error: (err) => {
+          console.log('err:', err)
+        },
+        complete: () => {
+          this.router.navigate(['/login'])
+        }
+      });
+    }
+  }
 
   togglePills() {
     this.expand_pills = !this.expand_pills;
@@ -173,17 +213,9 @@ export class HomeComponent {
     })
   }
 
-  constructor(private injector: Injector) {
-    this._active = localStorage.getItem('homeTab')
-    this.updatePlayerInfo();
-    this.updatePlayerInfoInjector = Injector.create({
-      providers: [
-        {
-          provide: "updatePlayerInfo",
-          useValue: () => {this.updatePlayerInfo()}
-        }
-      ],
-      parent: this.injector
-    })
+  ngOnInit(): void {
+    
   }
+
+
 }

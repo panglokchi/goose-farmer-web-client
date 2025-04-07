@@ -101,20 +101,27 @@
                         </span>
 
                     </div>
-                    <div class="my-1 py-2 me-2">
-                        <div class="py-1">
-                            Lvl. {{player?.level}}
+                    <div ngbDropdown class="d-inline-block me-3 py-2" placement="bottom-end">
+                        <button type="button" class="btn text-end" id="dropdownBasic1" ngbDropdownToggle>
+                                {{player?.user?.username}} ⚙️
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button ngbDropdownItem (click)="signOut()">Log Out</button>
                         </div>
-                    </div>     
+                    </div>
+   
                 </div>
  
             </div>
             <div style="margin-left: 4.5em">
                 <div class="flex-fill position-relative" >
                     <div style="height: 1.5em">
-                        <div class="position-absolute top-50 start-50 translate-middle text-truncate d-flex justify-content-between w-100 pe-3">
+                        <div class="position-absolute top-50 start-50 translate-middle text-truncate d-flex justify-content-between w-100 ps-1 pe-3">
                             <div>
                                 Current XP {{player.exp - player.last_level_exp}}
+                            </div>
+                            <div>
+                                Lvl. {{player?.level}}
                             </div>
                             <div>
                                 {{player.next_level_exp - player.last_level_exp}} to next level

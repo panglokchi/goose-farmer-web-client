@@ -22,6 +22,10 @@ export class GameService {
     this.getToken();
   }
 
+  public updateToken() {
+    this.getToken();
+  }
+
   getBirdList(): Observable<any> {
     console.log(`get bird list`);
     return this.http.get<Bird>('http://172.26.87.217:8000/api/player/birds',{
