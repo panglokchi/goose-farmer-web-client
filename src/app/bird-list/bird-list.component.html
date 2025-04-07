@@ -37,7 +37,19 @@
         </div>
         <div class="d-flex justify-content-between p-0 mt-1">
             <h4 class="">Inventory</h4>
+
             <ngb-pagination class="" [collectionSize]="birdList.length" [pageSize]="paginationElements" [maxSize]="5" [(page)]="currentPage" [directionLinks]="false" ></ngb-pagination>
+
+            <div ngbDropdown class="d-inline-block" placement="bottom-end">
+                <button type="button" class="btn btn-outline-primary text-end" id="dropdownBasic1" style="width: 6em" ngbDropdownToggle>
+                    {{sortOrder}}
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem (click)="setSortOrder('Rarity')">Rarity</button>
+                    <button ngbDropdownItem (click)="setSortOrder('Level')">Level</button>
+                    <button ngbDropdownItem (click)="setSortOrder('New')">New</button>
+                </div>
+            </div>
         </div>
 
 

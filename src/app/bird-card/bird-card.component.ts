@@ -27,7 +27,7 @@ export class BirdCardComponent implements OnInit {
     next_level_exp: 100,
     egg_amount: 1,
     assigned_to_coop: false,
-    egg_timer: 86400,
+    egg_timer: -1,
     is_new: false,
     rarity: "COMMON",
     egg_timer_max: 86400

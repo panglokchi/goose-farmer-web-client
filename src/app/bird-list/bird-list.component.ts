@@ -3,12 +3,12 @@ import { GameService } from '../services/game.service';
 import { CommonModule } from '@angular/common';
 import { BirdCardComponent } from '../bird-card/bird-card.component';
 import { BirdInfoComponent } from '../bird-info/bird-info.component';
-import { Bird } from '../interfaces/bird';
-import { NgbModal, NgbModalRef, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
+import { Bird, sortNew, sortLevel, sortRarity } from '../interfaces/bird';
+import { NgbModal, NgbModalRef, NgbPagination, NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-bird-list',
-  imports: [CommonModule, BirdCardComponent, NgbPagination],
+  imports: [CommonModule, BirdCardComponent, NgbPagination, NgbDropdownModule],
   templateUrl: './bird-list.component.html',
   styleUrl: './bird-list.component.css'
 })
@@ -24,6 +24,8 @@ export class BirdListComponent {
 
   public birdModalId: number = 0;
   public modalRef: NgbModalRef | null = null;
+
+  public sortOrder = "Rarity";
 
   Math = Math
   Array = Array
@@ -51,8 +53,8 @@ export class BirdListComponent {
     console.log("updating bird list")
     this.gameService.getBirdList().subscribe({
       next: res => {
-        this.birdList = res.filter((b: any) => b.assigned_to_coop == false);
-        this.birdListActive = res.filter((b: any) => b.assigned_to_coop == true);
+        this.birdList = res.filter((b: Bird) => b.assigned_to_coop == false).sort(sortRarity);
+        this.birdListActive = res.filter((b: Bird) => b.assigned_to_coop == true).sort(sortRarity);
         console.log("active: ", this.birdListActive)
         console.log("inventory: ", this.birdList)
         if(this.modalRef) {
@@ -67,7 +69,19 @@ export class BirdListComponent {
     });
   }
 
-
+  public setSortOrder = (order: string) => {
+    this.sortOrder = order;
+    console.log(this.sortOrder)
+    if (this.sortOrder == "Rarity") {
+      this.birdList = this.birdList.sort(sortRarity);
+    }
+    if (this.sortOrder == "New") {  
+      this.birdList = this.birdList.sort(sortNew);
+    }
+    if (this.sortOrder == "Level") {
+      this.birdList = this.birdList.sort(sortLevel);
+    }
+  }
 
   open = (bird: Bird) => {
     this.modalRef = this.modalService.open(BirdInfoComponent, { centered: true })

@@ -82,4 +82,13 @@ export class GameService {
       headers: new HttpHeaders({"Authorization": "Token " + this.token})
     })
   }
+
+  setBirdNotNew(id: number): Observable<any> {
+    return this.http.post<Player>('http://172.26.87.217:8000/api/player/set-bird-not-new',{
+      bird_id: id,
+    },
+    {
+      headers: new HttpHeaders({"Authorization": "Token " + this.token})
+    })
+  }
 }

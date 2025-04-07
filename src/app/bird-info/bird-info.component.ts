@@ -1,4 +1,4 @@
-import { Component, inject, Input, Inject} from '@angular/core';
+import { Component, inject, Input, Inject, OnDestroy} from '@angular/core';
 import { NgIf } from '@angular/common';
 import { NgbActiveModal, NgbProgressbar　} from '@ng-bootstrap/ng-bootstrap';
 import { Bird } from '../interfaces/bird';
@@ -11,7 +11,7 @@ import { GameService } from '../services/game.service';
   templateUrl: './bird-info.component.html',
   styleUrl: './bird-info.component.css'
 })
-export class BirdInfoComponent {
+export class BirdInfoComponent implements OnDestroy {
 	activeModal = inject(NgbActiveModal);
   gameService = inject(GameService);
   @Input() updateBirdList: any;
@@ -75,5 +75,15 @@ export class BirdInfoComponent {
         this.updatePlayerInfo();
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    if(this._bird.is_new == true) {
+      this.gameService.setBirdNotNew(this._bird.id).subscribe({
+        next: (res) => {
+          this.updateBirdList();
+        }
+      });
+    }
   }
 }
