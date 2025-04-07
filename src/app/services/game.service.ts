@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Bird } from '../interfaces/bird';
 import { Player } from '../interfaces/player';
+import { Mission } from '../interfaces/mission';
 
 @Injectable({
   providedIn: 'root'
@@ -88,6 +89,12 @@ export class GameService {
       bird_id: id,
     },
     {
+      headers: new HttpHeaders({"Authorization": "Token " + this.token})
+    })
+  }
+
+  getMissions(): Observable<Mission[]> {
+    return this.http.get<Mission[]>('http://172.26.87.217:8000/api/player/missions',{
       headers: new HttpHeaders({"Authorization": "Token " + this.token})
     })
   }
