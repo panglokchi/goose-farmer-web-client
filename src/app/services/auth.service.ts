@@ -87,6 +87,13 @@ export class AuthService {
     })
   }
 
+  signUp(email: string, password: string) {
+    return this.http.post<{"expiry": string, "token": string}>('http://172.26.87.217:8000/api/register/', {
+      "email": email,
+      "password": password
+    })
+  }
+
   signOut(token: string) {
     return this.http.post<any>('http://172.26.87.217:8000/api/logout/', {
 

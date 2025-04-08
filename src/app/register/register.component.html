@@ -16,21 +16,28 @@
         </div>
 
         <div class="bg-body p-2 rounded-bottom border border-top-0" *ngIf="valid">
-            <h4 class="text-center">✅ Email Verified</h4>
             <form [formGroup]="passwordForm" (submit)="submit()">
                 <div class="mb-2">
-                  <label class="form-label" for="password">Choose a password</label>
+                    <label class="form-label" for="email">Email</label>
+                    <input class="form-control" type="email" id="email" formControlName="email" name="email" ngModel email required>
+                  </div>
+                <div class="mb-2">
+                  <label class="form-label" for="password">Password</label>
                   <input class="form-control" type="password" id="password" formControlName="password" name="password" required>
                 </div>
                 <div class="mb-2">
-                  <label class="form-label" for="confirmPassword">Confirm password</label>
+                  <label class="form-label" for="confirmPassword">Confirm Password</label>
                   <input class="form-control" type="password" id="confirmPassword" formControlName="confirmPassword" name="confirmPassword" required>
                 </div>
+                <div class="text-warning text-center" *ngIf="passwordForm.controls.email.errors && passwordForm.controls.email.errors['email']">Email is invalid.</div>
                 <div class="text-warning text-center" *ngIf="passwordForm.value.password && passwordForm.value.password.length < 8">Password must contain at least 8 characters.</div>
                 <div class="text-warning text-center" *ngIf="passwordForm.value.password && passwordForm.value.password.length >= 8 && passwordForm.errors && passwordForm.errors['mismatch'] == true">Passwords do not match.</div>
 
                 <div class="d-flex flex-column">
-                    <button type="submit" class="btn btn-primary mb-2" [disabled]="!passwordForm.valid">Confirm</button>
+                    <button type="submit" class="btn btn-primary mb-2" [disabled]="!passwordForm.valid || loading">
+                        <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="loading"></span>
+                        <span role="status" *ngIf="!loading">Sign Up</span>
+                    </button>
                 </div>
             </form>
         </div>

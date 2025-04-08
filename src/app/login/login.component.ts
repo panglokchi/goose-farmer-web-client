@@ -52,6 +52,7 @@ export class LoginComponent {
   signUp() {
     // Navigate to signup
     console.log('Navigate to signup');
+    this.router.navigate(['/register']);
   }
 
   playAsGuest() {
