@@ -1,0 +1,44 @@
+<div data-bs-theme="dark" class="bg-secondary-subtle text-body phasis vw-100 vh-100">
+    <div class="login-form container p-3 pt-4" style="max-width: 500px">
+        <div class="bg-body-secondary p-2 rounded-top d-flex flex-column align-items-center border">
+            <div>
+                <h1 class="m-0" style="font-size: 5em">🪿</h1>
+            </div>
+            <div>
+                <p class="m-0">Goose Farmer Simulator</p>
+            </div>
+        </div>
+
+        <div class="bg-body p-2 rounded-bottom border border-top-0 d-flex justify-content-center" *ngIf="valid == null">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+
+        <div class="bg-body p-2 rounded-bottom border border-top-0" *ngIf="valid">
+            <form [formGroup]="passwordForm" (submit)="submit()">
+                <div class="mb-2">
+                  <label class="form-label" for="password">Password</label>
+                  <input class="form-control" type="password" id="password" formControlName="password" name="password" required>
+                </div>
+                <div class="mb-2">
+                  <label class="form-label" for="confirmPassword">Confirm Password</label>
+                  <input class="form-control" type="confirmPassword" id="confirmPassword" formControlName="confirmPassword" name="confirmPassword" required>
+                </div>
+                <div class="d-flex flex-column">
+                    <button type="submit" class="btn btn-primary mb-2">Confirm</button>
+                    <div class="d-flex">
+
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="bg-body p-2 rounded-bottom border border-top-0" *ngIf="!valid">
+            <p class="text-center my-1">
+                Key is not valid.
+            </p>
+        </div>
+
+    </div>
+</div>

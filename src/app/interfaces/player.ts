@@ -12,4 +12,5 @@ export interface Player {
     feed?: number
     last_level_exp: number;
     next_level_exp: number;
+    is_guest?: boolean;
 }

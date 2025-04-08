@@ -1,5 +1,5 @@
-import { Component, Input, inject, Injector, OnInit, afterNextRender } from '@angular/core';
-import { NgbNavModule, NgbProgressbar, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, inject, Injector, OnInit, afterNextRender, TemplateRef } from '@angular/core';
+import { NgbNavModule, NgbProgressbar, NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { NgComponentOutlet, NgIf } from '@angular/common';
 import { BirdListComponent } from '../bird-list/bird-list.component';
@@ -9,6 +9,7 @@ import { GameService } from '../services/game.service';
 import { MissionsComponent } from '../missions/missions.component';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'placeholder',
@@ -56,14 +57,14 @@ export class Placeholder {
       transition('hidden => shown', [animate('0.1s')]),
     ])
   ],
-  imports: [NgbNavModule, NgComponentOutlet, NgIf, NgbProgressbar, NgbDropdownModule],
+  imports: [NgbNavModule, NgComponentOutlet, NgIf, NgbProgressbar, NgbDropdownModule, ReactiveFormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
   _active: string | null = 'top';
   expand_pills = false;
-  inputs = { value: this.active }
+  inputs: any = { value: this._active };
   public player: Player = {
     user: {
       username: 'User',
@@ -151,6 +152,7 @@ export class HomeComponent implements OnInit {
     } else if (this.active == 'summonBird') {
       return SummonBirdComponent;
     } else if (this.active == 'missions') {
+      this.inputs = { player: this.player }
       return MissionsComponent;
     }
     return Placeholder;
@@ -209,8 +211,41 @@ export class HomeComponent implements OnInit {
         this.player = res;
         console.log("updating player info")
         console.log(this.player)
+        this.inputs = { player: this.player }
       }
     })
+  }
+
+  private modalService = inject(NgbModal);
+
+	open(content: TemplateRef<any>) {
+		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true }).result.then(
+			(result) => {
+
+			},
+			(reason) => {
+
+			},
+		);
+	}
+
+  requestGuestVerificationForm = new FormGroup({
+    email: new FormControl(''),
+  })
+
+  submitGuestVerifyRequest() {
+    this.modalService.dismissAll();
+    this.authService.requestGuestVerification(this.requestGuestVerificationForm.value.email ?? '').subscribe({
+      next: (res) => {
+
+      }
+      , error: (err) => {   
+        console.log('err:', err)
+      }
+      , complete: () => {
+        console.log("verification request sent")
+      }
+    });
   }
 
   ngOnInit(): void {

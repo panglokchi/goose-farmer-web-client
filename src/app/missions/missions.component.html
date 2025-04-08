@@ -1,5 +1,14 @@
 <div class="container-fluid" style="height: 75vh">
-    <ngb-alert [type]="'info'" [dismissible]="true" class="mt-2 p-2 px-3">
+    <div *ngIf="_player.is_guest == true">
+        <ngb-alert [type]="'warning'" [dismissible]="false" class="mt-2 p-2 px-3" >
+            <h4>
+                You are playing as a guest
+            </h4>
+            <p>Register your account to avoid losing progress.</p>
+        </ngb-alert >
+    </div>
+
+    <ngb-alert [type]="'info'" [dismissible]="false" class="mt-2 p-2 px-3">
         <h4>
             Goose Farming 101
         </h4>
@@ -25,9 +34,9 @@
             </div>
             <div class="d-flex flex-column">
                 <div class="flex-fill">
-                    <ul>
+                    <ul style="list-style-type: none;">
                         <li *ngFor="let objective of mission.objectives">
-                            {{objective.progress}}/{{objective.target}} {{objective.name}}
+                            {{objective.name}} - {{objective.progress}}/{{objective.target}} 
                         </li>
                     </ul>
                 </div>

@@ -1,8 +1,9 @@
-import { Component, inject, Inject } from '@angular/core';
+import { Component, inject, Inject, Input } from '@angular/core';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 import { Mission } from '../interfaces/mission';
 import { GameService } from '../services/game.service';
 import { NgFor, NgIf } from '@angular/common';
+import { Player } from '../interfaces/player';
 
 @Component({
   selector: 'app-missions',
@@ -12,6 +13,22 @@ import { NgFor, NgIf } from '@angular/common';
 })
 export class MissionsComponent {
   public missionList: Mission[] = [];
+  
+  public _player: Player = {
+    user: {
+      username: 'User',
+      last_login: 'None',
+      date_joined: 'None'
+    },
+    level: 1,
+    exp: 0,
+    last_level_exp: 0,
+    next_level_exp: 100,
+  };
+
+  @Input() set player(player: Player) {
+    this._player = player;
+  }
 
   gameService = inject(GameService);
 

@@ -57,5 +57,22 @@ export class LoginComponent {
   playAsGuest() {
     // Handle guest login
     console.log('Playing as guest');
+    this.authService.guestSignup().subscribe({
+      next: (res) => {
+        console.log('res:', res);
+        localStorage.setItem('token', res.token)
+        localStorage.setItem('tokenExpiry', res.expiry)
+        localStorage.setItem('homeTab', "missions")
+        this.gameService.updateToken();
+      },
+      error: (err) => {
+        console.log('err:', err)
+      },
+      complete: () => {
+        //this.authenticated = true
+        console.log("login success - redirecting")
+        this.router.navigate([''])
+      }
+    })
   }
 }

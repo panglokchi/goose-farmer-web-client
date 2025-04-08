@@ -107,6 +107,7 @@
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                             <button ngbDropdownItem (click)="signOut()">Log Out</button>
+                            <button ngbDropdownItem (click)="open(content)" *ngIf="player.is_guest == true">Register Account</button>
                         </div>
                     </div>
    
@@ -140,3 +141,25 @@
 
     </div> 
 </div>
+
+<ng-template #content let-modal>
+    <div data-bs-theme="dark">
+        <div class="modal-header bg-body text-body border">
+            <h4 class="modal-title" id="modal-basic-title">Register Account</h4>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body bg-body text-body border-start border-end">
+            <form [formGroup]="requestGuestVerificationForm" (submit)="submitGuestVerifyRequest()" id="requestGuestVerificationForm">
+                <div class="mb-2">
+                  <label class="form-label" for="email">Email</label>
+                  <input class="form-control" type="email" id="email" formControlName="email" name="email" required>
+                </div>
+
+              </form>
+        </div>
+        <div class="modal-footer bg-body text-body border">
+            <button type="button" type="submit" form="requestGuestVerificationForm" class="btn btn-outline-secondary">Confirm</button>
+        </div>
+    </div>
+	
+</ng-template>

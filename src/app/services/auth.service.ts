@@ -63,6 +63,30 @@ export class AuthService {
     */
   }
 
+  guestSignup() {
+    return this.http.post<{"expiry": string, "token": string}>('http://172.26.87.217:8000/api/play-as-guest', {
+
+    })
+  }
+
+  requestGuestVerification(email: string) {
+    return this.http.post('http://172.26.87.217:8000/api/request-guest-verification', {
+      "email": email
+    },{
+      headers: new HttpHeaders({"Authorization": "Token " + this.token})
+    })
+  }
+
+  checkGuestVerificationToken(token: string) {
+    return this.http.get('http://172.26.87.217:8000/api/guest-verification/?key=' + token)
+  }
+
+  guestVerification(token:string, password: string) {
+    return this.http.post<{"expiry": string, "token": string}>('http://172.26.87.217:8000/api/guest-verification/?key=' + token, {
+      "password" : password
+    })
+  }
+
   signOut(token: string) {
     return this.http.post<any>('http://172.26.87.217:8000/api/logout/', {
 
