@@ -4,59 +4,74 @@
     </div>
 </div>
 
-<div class="container-fluid" style="height: 75vh" *ngIf="!loading">
-    <div *ngIf="_player.is_guest == true">
-        <ngb-alert [type]="'warning'" [dismissible]="false" class="mt-2 p-2 px-3" >
+<div class="container-fluid w-100 d-flex flex-column flex-lg-row" style="height: 75vh" *ngIf="!loading"
+    [ngClass]="{'flex-xl-column': condensed == true}">
+
+    <div *ngIf="condensed==false" class="flex-fill">
+        <h4 class="mt-1">Annoucements</h4>
+        <div *ngIf="_player.is_guest == true">
+            <ngb-alert [type]="'warning'" [dismissible]="false" class="mt-2 p-2 px-3" >
+                <h4>
+                    You are playing as a guest
+                </h4>
+                <p>Register your account to avoid losing progress.</p>
+            </ngb-alert >
+        </div>
+    
+        <ngb-alert [type]="'info'" [dismissible]="false" class="mt-2 p-2 px-3" *ngIf="condensed==false">
             <h4>
-                You are playing as a guest
+                Goose Farming 101
             </h4>
-            <p>Register your account to avoid losing progress.</p>
+            <ul style="list-style-type: none; padding-left: 0.5em;">
+                <li>
+                    <strong>🥚 Eggs</strong> - higher level geese produce more eggs
+                </li>
+                <li>
+                    <strong>🪶 Feathers</strong> - summon new geese to your farm
+                </li>
+                <li>
+                    <strong>🍎 Apples</strong> - feed your geese to level them up
+                </li>
+            </ul>
         </ngb-alert >
+
     </div>
 
-    <ngb-alert [type]="'info'" [dismissible]="false" class="mt-2 p-2 px-3">
-        <h4>
-            Goose Farming 101
-        </h4>
-        <ul style="list-style-type: none; padding-left: 0.5em;">
-            <li>
-                <strong>🥚 Eggs</strong> - higher level geese produce more eggs
-            </li>
-            <li>
-                <strong>🪶 Feathers</strong> - summon new geese to your farm
-            </li>
-            <li>
-                <strong>🍎 Apples</strong> - feed your geese to level them up
-            </li>
-        </ul>
-    </ngb-alert >
-    <h4>Missions</h4>
-    <div class="alert alert-light p-2" role="alert" *ngFor="let mission of missionList">
-        <div class="d-flex justify-content-between">
-            <div class="d-flex flex-column">
-                <div><span class="badge text-bg-secondary me-1 my-1" *ngIf="mission.repeat != 'NONE'">{{mission.repeat}}</span><strong>{{mission.name}}</strong></div>
-                <div>{{mission.description}}</div>
-                
-            </div>
-            <div class="d-flex flex-column">
-                <div class="flex-fill">
-                    <ul style="list-style-type: none;">
-                        <li *ngFor="let objective of mission.objectives">
-                            {{objective.name}} - {{objective.progress}}/{{objective.target}} 
-                        </li>
-                    </ul>
+    <div class="me-0 me-lg-3" *ngIf="condensed==false">
+
+    </div>
+    
+    <div style="min-width: 25%">
+        <h4 class="mt-1">Missions</h4>
+        <div class="alert alert-light p-2" role="alert" *ngFor="let mission of missionList">
+            <div class="d-flex justify-content-between">
+                <div class="d-flex flex-column">
+                    <div><span class="badge text-bg-secondary me-1 my-1" *ngIf="mission.repeat != 'NONE'">{{mission.repeat}}</span><strong>{{mission.name}}</strong></div>
+                    <div>{{mission.description}}</div>
+                    
+                </div>
+                <div class="d-flex flex-column">
+                    <div class="flex-fill">
+                        <ul style="list-style-type: none;">
+                            <li *ngFor="let objective of mission.objectives">
+                                {{objective.name}} - {{objective.progress}}/{{objective.target}} 
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="d-flex">
-                <div *ngIf="mission.exp_reward > 0" style="min-width: 4em">💡{{mission.exp_reward}}</div>
-                <div *ngIf="mission.egg_reward > 0" style="min-width: 4em">🥚{{mission.egg_reward}}</div>
-                <div *ngIf="mission.summon_reward > 0" style="min-width: 4em">🪶{{mission.summon_reward}}</div>
-                <div *ngIf="mission.feed_reward > 0" style="min-width: 4em">🍎{{mission.feed_reward}}</div>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex">
+                    <div *ngIf="mission.exp_reward > 0" style="min-width: 4em">💡{{mission.exp_reward}}</div>
+                    <div *ngIf="mission.egg_reward > 0" style="min-width: 4em">🥚{{mission.egg_reward}}</div>
+                    <div *ngIf="mission.summon_reward > 0" style="min-width: 4em">🪶{{mission.summon_reward}}</div>
+                    <div *ngIf="mission.feed_reward > 0" style="min-width: 4em">🍎{{mission.feed_reward}}</div>
+                </div>
+                <button type="button" class="btn btn-primary" [disabled]="!mission.complete" (click)="completeMission(mission.id)">Complete</button>
             </div>
-            <button type="button" class="btn btn-primary" [disabled]="!mission.complete" (click)="completeMission(mission.id)">Complete</button>
         </div>
     </div>
-      
+
 </div>
+
+

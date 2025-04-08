@@ -4,8 +4,8 @@
     </div>
 </div>
 
-<div class="container-fluid d-flex" style="min-width: 50vw; overflow: hidden" *ngIf="!loading">
-    <div>
+<div class="container-fluid d-flex" *ngIf="!loading">
+    <div class="flex-grow" style="min-width: 75%">
         <h4 class="mt-1">Farm</h4>
         <div class="row overflow-auto gy-0 gy-lg-1 gy-xl-2 gx-0 gx-lg-1 gx-xl-2 row-cols-2 row-cols-sm-3 row-cols-lg-6 row-cols-xl-6">
             <div class="" *ngFor="let bird of birdListActive">
@@ -68,8 +68,9 @@
             </div>
         </div>
     </div>
-    <div class="d-none d-xl-block" style="min-width: 12em">
+    <div class="d-none d-xl-block" style="min-width: 25%; overflow: hidden">
         <!-- placeholder -->
+         <app-missions [condensed]="true"></app-missions>
     </div>
 </div>
 

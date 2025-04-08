@@ -1,60 +1,67 @@
-<div class="container-fluid" style="height: 75vh">
-    <h4 class="mt-1">Bird Summoning</h4>
-
+<div class="container-fluid d-flex" style="height: 75vh">
     <div>
-        <div class="row overflow-auto gy-0 gy-lg-2 gx-1 gx-lg-3 row-cols-2 row-cols-lg-5">
-            <div class="col">
-                <app-bird-card [bird]="{
-                    name: 'Summon 1×🪿',
-                    bird_type: {
-                        species: 'Use 1×🪶'
-                    }
-                }"
-                (click)="summonBird(1)"
-                >
-                </app-bird-card>
+        <h4 class="mt-1">Bird Summoning</h4>
+
+        <div>
+            <div class="row overflow-auto gy-0 gy-lg-2 gx-1 gx-lg-3 row-cols-2 row-cols-lg-5">
+                <div class="col">
+                    <app-bird-card [bird]="{
+                        name: 'Summon 1×🪿',
+                        bird_type: {
+                            species: 'Use 1×🪶'
+                        }
+                    }"
+                    (click)="summonBird(1)"
+                    >
+                    </app-bird-card>
+                </div>
+        
+                <div class="col">
+                    <app-bird-card [bird]="{
+                        icon: '🪿',
+                        name: 'Summon 10×🪿aa',
+                        bird_type: {
+                            species: 'Use 10×🪶'
+                        }
+                    }"
+                    (click)="summonBird(10)"
+                    >
+                    </app-bird-card>         
+                </div>
+        
+                <div class="col">
+                    
+                </div>
+                <div class="col">
+                    
+                </div>
+                <div class="col">
+                    
+                </div>
+        
             </div>
-    
-            <div class="col">
-                <app-bird-card [bird]="{
-                    icon: '🪿',
-                    name: 'Summon 10×🪿aa',
-                    bird_type: {
-                        species: 'Use 10×🪶'
-                    }
-                }"
-                (click)="summonBird(10)"
-                >
-                </app-bird-card>         
+        </div>
+
+
+        <h4 class="mt-1">Results</h4>
+
+        <div>
+            <div class="row gy-0 gy-lg-2 gx-1 gx-lg-3 row-cols-2 row-cols-md-5">
+                <div class="col" *ngFor="let bird of birdList">
+                    <app-bird-card [bird]="bird"></app-bird-card>
+                </div>
+
+                <div class="col" *ngFor="let x of [].constructor(25)" style="height: 0px; overflow: hidden">
+                    <app-bird-card></app-bird-card>
+                </div>
+
             </div>
-    
-            <div class="col">
-                
-            </div>
-            <div class="col">
-                
-            </div>
-            <div class="col">
-                
-            </div>
-    
         </div>
     </div>
 
-
-    <h4 class="mt-1">Results</h4>
-
-    <div>
-        <div class="row gy-0 gy-lg-2 gx-1 gx-lg-3 row-cols-2 row-cols-md-5">
-            <div class="col" *ngFor="let bird of birdList">
-                <app-bird-card [bird]="bird"></app-bird-card>
-            </div>
-
-            <div class="col" *ngFor="let x of [].constructor(25)" style="height: 0px; overflow: hidden">
-                <app-bird-card></app-bird-card>
-            </div>
-
-        </div>
+    <div class="d-none d-xl-block" style="min-width: 25%; overflow: hidden">
+        <!-- placeholder -->
+         <app-missions [condensed]="true"></app-missions>
     </div>
 
 </div>

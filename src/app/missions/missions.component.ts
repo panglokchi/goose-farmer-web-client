@@ -2,19 +2,20 @@ import { Component, inject, Inject, Input } from '@angular/core';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 import { Mission } from '../interfaces/mission';
 import { GameService } from '../services/game.service';
-import { NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Player } from '../interfaces/player';
 
 @Component({
   selector: 'app-missions',
-  imports: [NgbAlert, NgFor, NgIf],
+  imports: [NgbAlert, NgFor, NgIf, CommonModule],
   templateUrl: './missions.component.html',
   styleUrl: './missions.component.css'
 })
 export class MissionsComponent {
   public missionList: Mission[] = [];
   public loading: boolean = true;
-  
+  @Input() public condensed: boolean = false;
+
   public _player: Player = {
     user: {
       username: 'User',

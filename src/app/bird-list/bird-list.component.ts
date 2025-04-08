@@ -1,14 +1,15 @@
-import { Component, inject, Inject, Input } from '@angular/core';
+import { Component, inject, Inject, Input, Query, QueryList, ViewChild } from '@angular/core';
 import { GameService } from '../services/game.service';
 import { CommonModule } from '@angular/common';
 import { BirdCardComponent } from '../bird-card/bird-card.component';
 import { BirdInfoComponent } from '../bird-info/bird-info.component';
 import { Bird, sortNew, sortLevel, sortRarity } from '../interfaces/bird';
 import { NgbModal, NgbModalRef, NgbPagination, NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
+import { MissionsComponent } from '../missions/missions.component';
 
 @Component({
   selector: 'app-bird-list',
-  imports: [CommonModule, BirdCardComponent, NgbPagination, NgbDropdownModule],
+  imports: [CommonModule, BirdCardComponent, NgbPagination, NgbDropdownModule, MissionsComponent],
   templateUrl: './bird-list.component.html',
   styleUrl: './bird-list.component.css'
 })
@@ -28,6 +29,9 @@ export class BirdListComponent {
   public modalRef: NgbModalRef | null = null;
 
   public sortOrder = "Rarity";
+
+  @ViewChild(MissionsComponent)
+  missionsComponent: MissionsComponent | undefined;
 
   Math = Math
   Array = Array
@@ -68,6 +72,7 @@ export class BirdListComponent {
           }
         }
         this.loading = false;
+        this.missionsComponent?.getMissions();
       }
     });
   }
