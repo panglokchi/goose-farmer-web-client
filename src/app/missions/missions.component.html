@@ -1,4 +1,10 @@
-<div class="container-fluid" style="height: 75vh">
+<div class="d-flex justify-content-center align-items-center" *ngIf="loading" style="height: 75vh">
+    <div class="spinner-border" role="status"  style="width: 5rem; height: 5rem">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+<div class="container-fluid" style="height: 75vh" *ngIf="!loading">
     <div *ngIf="_player.is_guest == true">
         <ngb-alert [type]="'warning'" [dismissible]="false" class="mt-2 p-2 px-3" >
             <h4>

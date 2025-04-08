@@ -106,6 +106,10 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  ngOnInit(): void {
+    
+  }
+
   public signOut() {
     const token = localStorage.getItem("token")
     if(token != null) {
@@ -155,7 +159,7 @@ export class HomeComponent implements OnInit {
       this.inputs = { player: this.player }
       return MissionsComponent;
     }
-    return Placeholder;
+    return MissionsComponent;
   }
 
   onEggChange = (value: number, time: number) => {
@@ -248,9 +252,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    
-  }
+
 
 
 }

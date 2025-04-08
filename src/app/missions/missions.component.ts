@@ -13,6 +13,7 @@ import { Player } from '../interfaces/player';
 })
 export class MissionsComponent {
   public missionList: Mission[] = [];
+  public loading: boolean = true;
   
   public _player: Player = {
     user: {
@@ -37,6 +38,7 @@ export class MissionsComponent {
       next: res => {
         this.missionList = res;
         console.log(this.missionList);
+        this.loading = false;
       }
     });
   }

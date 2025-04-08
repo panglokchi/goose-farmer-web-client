@@ -17,6 +17,8 @@ export class BirdListComponent {
   gameService = inject(GameService)
   modalService = inject(NgbModal)
 
+  public loading: boolean = true;
+
   public birdList: Bird[] = [];
   public birdListActive: Bird[] = [];
   public paginationElements: number = 12;
@@ -65,6 +67,7 @@ export class BirdListComponent {
             this.modalRef.close();
           }
         }
+        this.loading = false;
       }
     });
   }
