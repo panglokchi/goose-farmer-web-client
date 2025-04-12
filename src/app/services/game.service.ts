@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Bird } from '../interfaces/bird';
 import { Player } from '../interfaces/player';
 import { Mission } from '../interfaces/mission';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -28,14 +29,14 @@ export class GameService {
 
   getBirdList(): Observable<any> {
     console.log(`get bird list`);
-    return this.http.get<Bird>('http://172.26.87.217:8000/api/player/birds',{
+    return this.http.get<Bird>(environment.API_URL+'/player/birds',{
       headers: new HttpHeaders({"Authorization": "Token " + this.token})
     })
   }
 
   summonBird(count: number): Observable<Bird[]> {
     console.log(`summon bird`);
-    return this.http.post<Bird[]>('http://172.26.87.217:8000/api/summon',
+    return this.http.post<Bird[]>(environment.API_URL+'/summon',
       {
         times: count
       },
@@ -45,13 +46,13 @@ export class GameService {
   }
 
   getPlayerInfo(username?: string): Observable<Player> {
-    return this.http.get<Player>('http://172.26.87.217:8000/api/player/',{
+    return this.http.get<Player>(environment.API_URL+'/player/',{
       headers: new HttpHeaders({"Authorization": "Token " + this.token})
     })
   }
 
   activateBird(id: number, active: boolean): Observable<any> {
-    return this.http.post<Player>('http://172.26.87.217:8000/api/player/activate-bird',{
+    return this.http.post<Player>(environment.API_URL+'/player/activate-bird',{
       bird_id: id,
       active: active
     },
@@ -61,7 +62,7 @@ export class GameService {
   }
 
   feedBird(id: number, amount: number): Observable<any> {
-    return this.http.post<Player>('http://172.26.87.217:8000/api/player/feed-bird',{
+    return this.http.post<Player>(environment.API_URL+'/player/feed-bird',{
       bird_id: id,
       amount: amount
     },
@@ -71,7 +72,7 @@ export class GameService {
   }
 
   releaseBird(id: number): Observable<any> {
-    return this.http.post<Player>('http://172.26.87.217:8000/api/player/release-bird',{
+    return this.http.post<Player>(environment.API_URL+'/player/release-bird',{
       bird_id: id,
     },
     {
@@ -80,7 +81,7 @@ export class GameService {
   }
 
   collectEggs(id: number): Observable<any> {
-    return this.http.post<Player>('http://172.26.87.217:8000/api/player/collect-eggs',{
+    return this.http.post<Player>(environment.API_URL+'/player/collect-eggs',{
       bird_id: id,
     },
     {
@@ -89,7 +90,7 @@ export class GameService {
   }
 
   setBirdNotNew(id: number): Observable<any> {
-    return this.http.post<Player>('http://172.26.87.217:8000/api/player/set-bird-not-new',{
+    return this.http.post<Player>(environment.API_URL+'/player/set-bird-not-new',{
       bird_id: id,
     },
     {
@@ -98,13 +99,13 @@ export class GameService {
   }
 
   getMissions(): Observable<Mission[]> {
-    return this.http.get<Mission[]>('http://172.26.87.217:8000/api/player/missions',{
+    return this.http.get<Mission[]>(environment.API_URL+'/player/missions',{
       headers: new HttpHeaders({"Authorization": "Token " + this.token})
     })
   }
 
   completeMission(id: number): Observable<any> {
-    return this.http.post<Player>('http://172.26.87.217:8000/api/player/claim-mission',{
+    return this.http.post<Player>(environment.API_URL+'/player/claim-mission',{
       mission_id: id,
     },
     {

@@ -1,7 +1,8 @@
 import { Injectable, afterRender } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable} from 'rxjs';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class AuthService {
 
   login(email: string, password: string, redirect?: string) {
     console.log(`Login - email: ${email}, password: ${password}`);
-    return this.http.post<{"expiry": string, "token": string}>('http://172.26.87.217:8000/api/login/', {
+    return this.http.post<{"expiry": string, "token": string}>(environment.API_URL+'/login/', {
       "username": email,
       "password": password
     })
@@ -64,13 +65,13 @@ export class AuthService {
   }
 
   guestSignup() {
-    return this.http.post<{"expiry": string, "token": string}>('http://172.26.87.217:8000/api/play-as-guest', {
+    return this.http.post<{"expiry": string, "token": string}>(environment.API_URL+'/play-as-guest', {
 
     })
   }
 
   requestGuestVerification(email: string) {
-    return this.http.post('http://172.26.87.217:8000/api/request-guest-verification', {
+    return this.http.post(environment.API_URL+'/request-guest-verification', {
       "email": email
     },{
       headers: new HttpHeaders({"Authorization": "Token " + this.token})
@@ -78,24 +79,24 @@ export class AuthService {
   }
 
   checkGuestVerificationToken(token: string) {
-    return this.http.get('http://172.26.87.217:8000/api/guest-verification/?key=' + token)
+    return this.http.get(environment.API_URL+'/guest-verification/?key=' + token)
   }
 
   guestVerification(token:string, password: string) {
-    return this.http.post<{"expiry": string, "token": string}>('http://172.26.87.217:8000/api/guest-verification/?key=' + token, {
+    return this.http.post<{"expiry": string, "token": string}>(environment.API_URL+'/guest-verification/?key=' + token, {
       "password" : password
     })
   }
 
   signUp(email: string, password: string) {
-    return this.http.post<{"expiry": string, "token": string}>('http://172.26.87.217:8000/api/register/', {
+    return this.http.post<{"expiry": string, "token": string}>(environment.API_URL+'/register/', {
       "email": email,
       "password": password
     })
   }
 
   signOut(token: string) {
-    return this.http.post<any>('http://172.26.87.217:8000/api/logout/', {
+    return this.http.post<any>(environment.API_URL+'/logout/', {
 
     },{
       headers: new HttpHeaders({"Authorization": "Token " + token})
@@ -106,7 +107,7 @@ export class AuthService {
     console.log(`Checking token...`);
     this.getToken();
     console.log(this.token, this.tokenExpiry)
-    const res = this.http.get<{"user": string, "expiry": string}>('http://172.26.87.217:8000/api/validate-token/', {
+    const res = this.http.get<{"user": string, "expiry": string}>(environment.API_URL+'/validate-token/', {
       headers: new HttpHeaders({"Authorization": "Token " + this.token})
     })
     res.subscribe({
