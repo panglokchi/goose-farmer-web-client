@@ -170,6 +170,9 @@ export class HomeComponent implements OnInit {
     this._active = v
     this.inputs = { value: this._active }
     localStorage.setItem('homeTab', this._active)
+    if( this.narrowScreen) {
+      this.expand_pills = false;
+    }
   }
 
   getContent() {

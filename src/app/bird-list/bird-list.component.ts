@@ -1,6 +1,6 @@
 import { Component, inject, Inject, Input, Query, QueryList, ViewChild } from '@angular/core';
 import { GameService } from '../services/game.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { BirdCardComponent } from '../bird-card/bird-card.component';
 import { BirdInfoComponent } from '../bird-info/bird-info.component';
 import { Bird, sortNew, sortLevel, sortRarity } from '../interfaces/bird';
@@ -9,7 +9,7 @@ import { MissionsComponent } from '../missions/missions.component';
 
 @Component({
   selector: 'app-bird-list',
-  imports: [CommonModule, BirdCardComponent, NgbPagination, NgbDropdownModule, MissionsComponent],
+  imports: [CommonModule, BirdCardComponent, NgbPagination, NgbDropdownModule, MissionsComponent, NgClass],
   templateUrl: './bird-list.component.html',
   styleUrl: './bird-list.component.css'
 })
@@ -17,7 +17,9 @@ export class BirdListComponent {
   @Input() value: any = null;
   gameService = inject(GameService)
   modalService = inject(NgbModal)
-
+  
+  public isMobile: boolean = false;
+  public activeTab: string = "farm";
   public loading: boolean = true;
 
   public birdList: Bird[] = [];
@@ -35,6 +37,10 @@ export class BirdListComponent {
 
   Math = Math
   Array = Array
+
+  setActiveTab = (tab: string) => {
+    this.activeTab = tab;
+  }
 
   updatePagination() {
     console.log(window.innerWidth, window.innerHeight)
@@ -101,7 +107,7 @@ export class BirdListComponent {
 
   constructor(@Inject('updatePlayerInfo') public updatePlayerData: () => void) {
     this.updatePagination();
-
     this.updateBirdList();
+    this.isMobile = navigator.userAgent.includes("Mobile")
   }
 }
