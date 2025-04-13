@@ -1,9 +1,9 @@
-<div class="container-fluid d-flex" style="height: 75vh">
+<div class="container-fluid d-flex">
     <div>
-        <h4 class="mt-1">Bird Summoning</h4>
+        <h4 class="mt-1" *ngIf="!isMobile">Bird Summoning</h4>
 
-        <div>
-            <div class="row overflow-auto gy-0 gy-lg-2 gx-1 gx-lg-3 row-cols-2 row-cols-lg-5">
+        <div class="mt-2">
+            <div class="row gy-0 gy-lg-1 gy-xl-2 gx-0 gx-lg-1 gx-xl-2 row-cols-2 row-cols-lg-5">
                 <div class="col">
                     <app-bird-card [bird]="{
                         name: 'Summon 1×🪿',
@@ -43,11 +43,16 @@
         </div>
 
 
-        <h4 class="mt-1">Results</h4>
+        <div class="d-flex justify-content-between">
+            <h4 class="m-0 p-0 mt-1 ">Birds Summoned</h4>
 
-        <div>
-            <div class="row gy-0 gy-lg-2 gx-1 gx-lg-3 row-cols-2 row-cols-md-5">
-                <div class="col" *ngFor="let bird of birdList">
+            <ngb-pagination *ngIf="!isMobile" size="md mb-2" [collectionSize]="birdList.length" [pageSize]="paginationElements" [maxSize]="3" [(page)]="currentPage" [directionLinks]="false" class=""></ngb-pagination>
+        </div>
+
+
+        <div >
+            <div class="row gy-0 gy-lg-1 gy-xl-2 gx-0 gx-lg-1 gx-xl-2 row-cols-2 row-cols-md-5">
+                <div class="col" *ngFor="let bird of birdList.slice((currentPage-1) * paginationElements, currentPage * paginationElements)">
                     <app-bird-card [bird]="bird"></app-bird-card>
                 </div>
 
@@ -56,6 +61,11 @@
                 </div>
 
             </div>
+
+            <div class="d-flex justify-content-center mt-2" *ngIf="isMobile && birdList.length / paginationElements > 1">
+                <ngb-pagination *ngIf="isMobile" [collectionSize]="birdList.length" [pageSize]="paginationElements" [maxSize]="3" [(page)]="currentPage" [directionLinks]="false" class=""></ngb-pagination>
+            </div>
+            
         </div>
     </div>
 

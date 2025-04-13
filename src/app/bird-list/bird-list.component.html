@@ -12,7 +12,7 @@
                 <a class="nav-link p-2" [ngClass]="{'active': activeTab == 'farm'}" (click)="setActiveTab('farm')">Farm</a>
             </li>
             <div class="d-flex justify-content-between align-items-center" *ngIf="activeTab == 'inventory'">
-                <ngb-pagination class=" "size="sm" [collectionSize]="birdList.length" [pageSize]="paginationElements" [maxSize]="isMobile ? 1 : 5" [(page)]="currentPage" [directionLinks]="isMobile" class="me-2"></ngb-pagination>
+                <ngb-pagination class=" " size="sm" [collectionSize]="birdList.length" [pageSize]="paginationElements" [maxSize]="isMobile ? 1 : 5" [(page)]="currentPage" [directionLinks]="isMobile" class="me-2"></ngb-pagination>
     
                 <div ngbDropdown class="d-inline-block" placement="bottom-end">
                     <button type="button" class="btn btn-outline-primary text-end ps-2"
@@ -65,10 +65,10 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-between p-0 mt-1" *ngIf="!isMobile">
+        <div class="d-flex justify-content-between p-0 mt-1 align-items-center" *ngIf="!isMobile">
             <h4 class="">Inventory</h4>
 
-            <ngb-pagination class="" [collectionSize]="birdList.length" [pageSize]="paginationElements" [maxSize]="5" [(page)]="currentPage" [directionLinks]="false" ></ngb-pagination>
+            <ngb-pagination class="" size="md mb-2" [collectionSize]="birdList.length" [pageSize]="paginationElements" [maxSize]="5" [(page)]="currentPage" [directionLinks]="false" ></ngb-pagination>
 
             <div ngbDropdown class="d-inline-block" placement="bottom-end">
                 <button type="button" class="btn btn-outline-primary text-end" id="dropdownBasic1" style="width: 6em" ngbDropdownToggle>
