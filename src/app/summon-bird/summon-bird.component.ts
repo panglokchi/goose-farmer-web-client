@@ -28,8 +28,9 @@ export class SummonBirdComponent {
   summonBird(count: number) {
     this.gameService.summonBird(count).subscribe({
       next: res => {
-        this.birdList = res
-        console.log(this.birdList)
+        this.birdList.unshift(...res);
+        this.birdList = this.birdList.splice(0, 10);
+        console.log(this.birdList);
         this.updatePlayerData();
         this.missionsComponent?.getMissions();
       }

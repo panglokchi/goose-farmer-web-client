@@ -1,7 +1,7 @@
 import { Component, Input, inject, Injector, OnInit, afterNextRender, TemplateRef } from '@angular/core';
 import { NgbNavModule, NgbProgressbar, NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { NgComponentOutlet, NgIf } from '@angular/common';
+import { NgComponentOutlet, NgIf, NgClass, NgStyle } from '@angular/common';
 import { BirdListComponent } from '../bird-list/bird-list.component';
 import { SummonBirdComponent } from '../summon-bird/summon-bird.component';
 import { Player } from '../interfaces/player';
@@ -37,8 +37,24 @@ export class Placeholder {
           width: '10em',
         }),
       ),
-      transition('shown => hidden', [animate('0.3s')]),
-      transition('hidden => shown', [animate('0.1s')]),
+      transition('shown => hidden', [animate('0.2s')]),
+      transition('hidden => shown', [animate('0.15s')]),
+    ]),
+    trigger('appear', [
+      state(
+        'hidden',
+        style({
+          width: '0em',
+        }),
+      ),
+      state(
+        'shown',
+        style({
+          width: '10em',
+        }),
+      ),
+      transition('shown => hidden', [animate('0.2s')]),
+      transition('hidden => shown', [animate('0.15s')]),
     ]),
     trigger('fade', [
       state(
@@ -57,13 +73,14 @@ export class Placeholder {
       transition('hidden => shown', [animate('0.1s')]),
     ])
   ],
-  imports: [NgbNavModule, NgComponentOutlet, NgIf, NgbProgressbar, NgbDropdownModule, ReactiveFormsModule],
+  imports: [NgbNavModule, NgComponentOutlet, NgIf, NgbProgressbar, NgbDropdownModule, ReactiveFormsModule, NgClass, NgStyle],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
-  _active: string | null = 'top';
+  _active: string | null = 'missions';
   expand_pills = false;
+  public narrowScreen: boolean = false;
   inputs: any = { value: this._active };
   public player: Player = {
     user: {
@@ -94,7 +111,6 @@ export class HomeComponent implements OnInit {
       this._active = localStorage.getItem('homeTab') 
     })
 
-
     this.updatePlayerInfoInjector = Injector.create({
       providers: [
         {
@@ -104,6 +120,10 @@ export class HomeComponent implements OnInit {
       ],
       parent: this.injector
     })
+
+    if (window.innerWidth < 576 || navigator.userAgent.includes("Mobile")) {
+      this.narrowScreen = true;
+    }
   }
 
   ngOnInit(): void {
@@ -135,10 +155,12 @@ export class HomeComponent implements OnInit {
 
   showPills() {
     this.expand_pills = true;
+    console.log("show pills")
   }
 
   hidePills() {
     this.expand_pills = false;
+    console.log("hide pills")
   }
 
   public get active(): string | null {

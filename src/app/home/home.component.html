@@ -5,53 +5,110 @@
         }
     </style>
 
-    <div class="d-flex h-100">
-        <div ngbNav #nav="ngbNav" [(activeId)]="active"
-            class="nav-pills custom-pills flex-column bg-body-secondary z-1"
-            orientation="horizontal"
-            (mouseenter)="showPills()"
-            (mouseleave)="hidePills()"
+    <div class="d-flex h-100 overflow-hidden">
+        <div [ngStyle]="{'min-width.em': narrowScreen ? '0' : '3.5' }" class="h-100" *ngIf="!narrowScreen">
+            <div ngbNav #nav="ngbNav" [(activeId)]="active"
+                class="nav-pills custom-pills flex-column bg-body-secondary z-1 h-100 position-absolute"
+                orientation="horizontal"
+                (mouseenter)="showPills()"
+                (mouseleave)="hidePills()"
+                >
+                
+                <button type="button" *ngIf="!narrowScreen" class="btn text-start m-1" [@show]="expand_pills ? 'shown' : 'hidden'" style="border: none">
+                    <div [hidden]="expand_pills" class="p-1">🪿</div>
+                    <div [hidden]="!expand_pills" class="text-truncate p-1">
+                        🪿Goose Farmer
+                    </div>
+                </button>
 
-            >
-            
-            <button type="button" class="btn text-start m-1" style="border: none">
-                <div [hidden]="expand_pills" class="p-1">🪿</div>
-                <div [hidden]="!expand_pills" class="text-truncate p-1">
-                    🪿Goose Farmer
-                </div>
-            </button>
+                <button type="button" *ngIf="narrowScreen" class="btn text-start m-1" [@show]="expand_pills ? 'shown' : 'hidden'" style="border: none">
 
-            <ng-container ngbNavItem="missions">
-                <button ngbNavLink class="m-1 text-start" [@show]="expand_pills ? 'shown' : 'hidden'">
-                    <div [hidden]="expand_pills">🏠</div>
-                    <div [hidden]="!expand_pills" class="text-truncate">
-                        🏠Home
-                    </div>
                 </button>
-            </ng-container>
-            <ng-container ngbNavItem="birdList">
-                <button ngbNavLink class="m-1 text-start" [@show]="expand_pills ? 'shown' : 'hidden'">
-                    <div [hidden]="expand_pills">🪺</div>
-                    <div [hidden]="!expand_pills" class="text-truncate">
-                        🪺Farm
-                    </div>
-                </button>
-            </ng-container>
-            <ng-container ngbNavItem="summonBird">
-                <button ngbNavLink class="m-1 text-start" [@show]="expand_pills ? 'shown' : 'hidden'">
-                    <div [hidden]="expand_pills">🪶</div>
-                    <div [hidden]="!expand_pills"  class="text-truncate">
-                        🪶Summon
-                    </div>
-                </button>
-            </ng-container>
+
+                <ng-container ngbNavItem="missions">
+                    <button ngbNavLink class="m-1 text-start" [@show]="expand_pills ? 'shown' : 'hidden'">
+                        <div [hidden]="expand_pills">🏠</div>
+                        <div [hidden]="!expand_pills" class="text-truncate">
+                            🏠Home
+                        </div>
+                    </button>
+                </ng-container>
+                <ng-container ngbNavItem="birdList">
+                    <button ngbNavLink class="m-1 text-start" [@show]="expand_pills ? 'shown' : 'hidden'">
+                        <div [hidden]="expand_pills">🪺</div>
+                        <div [hidden]="!expand_pills" class="text-truncate">
+                            🪺Farm
+                        </div>
+                    </button>
+                </ng-container>
+                <ng-container ngbNavItem="summonBird">
+                    <button ngbNavLink class="m-1 text-start" [@show]="expand_pills ? 'shown' : 'hidden'">
+                        <div [hidden]="expand_pills">🪶</div>
+                        <div [hidden]="!expand_pills"  class="text-truncate">
+                            🪶Summon
+                        </div>
+                    </button>
+                </ng-container>
+            </div>
         </div>
 
-        
-        <div class="position-absolute z-0" >
-            <div class="bg-body-tertiary vw-100">
-                <div style="margin-left: 4.5em" class="d-flex">
-                    <div class="my-1 py-2 flex-fill me-auto" >
+        <div [ngStyle]="{'min-width.em': narrowScreen ? '0' : '3.5' }" class="h-100" *ngIf="narrowScreen">
+            <div class="h-100 position-absolute d-flex z-1">
+                <div ngbNav #nav="ngbNav" [(activeId)]="active"
+                    class="nav-pills custom-pills flex-column bg-body-secondary h-100 position-absolute overflow-hidden"
+                    orientation="horizontal"
+                    (mouseenter)="showPills()"
+                    (mouseleave)="hidePills()"
+                    [@appear]="expand_pills ? 'shown' : 'hidden'"
+                    >
+                    
+                    <button type="button" class="btn text-start m-1" style="border: none">
+                        <div class="text-truncate p-1" (click)="hidePills()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                            </svg>
+                        </div>
+                    </button>
+
+                    <ng-container ngbNavItem="missions">
+                        <button ngbNavLink class="m-1 text-start" [@show]="expand_pills ? 'shown' : 'hidden'">
+                            <div [hidden]="expand_pills">🏠</div>
+                            <div [hidden]="!expand_pills" class="text-truncate">
+                                🏠Home
+                            </div>
+                        </button>
+                    </ng-container>
+                    <ng-container ngbNavItem="birdList">
+                        <button ngbNavLink class="m-1 text-start" [@show]="expand_pills ? 'shown' : 'hidden'">
+                            <div [hidden]="expand_pills">🪺</div>
+                            <div [hidden]="!expand_pills" class="text-truncate">
+                                🪺Farm
+                            </div>
+                        </button>
+                    </ng-container>
+                    <ng-container ngbNavItem="summonBird">
+                        <button ngbNavLink class="m-1 text-start" [@show]="expand_pills ? 'shown' : 'hidden'">
+                            <div [hidden]="expand_pills">🪶</div>
+                            <div [hidden]="!expand_pills"  class="text-truncate">
+                                🪶Summon
+                            </div>
+                        </button>
+                    </ng-container>
+                </div>
+                <div class="h-100 vw-100 flex-fill" *ngIf="expand_pills" (click)="hidePills()" style="background-color: rgba(0,0,0,0.3)">
+                </div>
+            </div>
+        </div>
+
+        <div class="z-0" >
+            <div class="bg-body-tertiary container-fluid">
+                <div class="d-flex align-items-center">
+                    <div class="" *ngIf="narrowScreen" (click)="showPills()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                        </svg>
+                    </div>
+                    <div class="my-1 py-2 flex-fill d-flex">
                         <span class="position-absolute py-1 ps-1 pe-2 bg-info-subtle rounded-pill d-inline-flex justify-content-between me-2 z-1" [@fade]="showEggChange ? 'shown' : 'hidden'" style="max-width: 5em; width: 33%; top: 3em">
                             <span>
                                 🥚
@@ -99,9 +156,9 @@
                                 {{player?.feed}}
                             </span>
                         </span>
-
                     </div>
-                    <div ngbDropdown class="d-inline-block me-3 py-2" placement="bottom-end">
+
+                    <div ngbDropdown class="d-inline-block py-2" placement="bottom-end" *ngIf="!narrowScreen">
                         <button type="button" class="btn text-end" id="dropdownBasic1" ngbDropdownToggle>
                                 {{player?.user?.username}} ⚙️
                         </button>
@@ -110,14 +167,13 @@
                             <button ngbDropdownItem (click)="open(content)" *ngIf="player.is_guest == true">Register Account</button>
                         </div>
                     </div>
-   
                 </div>
- 
             </div>
-            <div style="margin-left: 4.5em">
-                <div class="flex-fill position-relative" >
-                    <div style="height: 1.5em">
-                        <div class="position-absolute top-50 start-50 translate-middle text-truncate d-flex justify-content-between w-100 ps-1 pe-3">
+
+            <div class="flex-fill position-relative" >
+                <div style="height: 1.5em" >
+                    <div class="position-absolute top-50 start-50 translate-middle text-truncate w-100">
+                        <div class="container-fluid d-flex justify-content-between">
                             <div>
                                 Current XP {{player.exp - player.last_level_exp}}
                             </div>
@@ -128,15 +184,15 @@
                                 {{player.next_level_exp - player.last_level_exp}} to next level
                             </div>
                         </div>
-                    <ngb-progressbar class="bg-dark-subtle" type="primary" style="border-radius: 0px; height: 2em; margin-left: -1em" [animated]="true" [value]="(player.exp - player.last_level_exp)/(player.next_level_exp - player.last_level_exp)*100" />
-
                     </div>
-                </div>
-                
-                <ng-container *ngComponentOutlet="getContent(); inputs: inputs; injector: updatePlayerInfoInjector"/>
-            </div>
+                <ngb-progressbar class="bg-dark-subtle" type="primary" style="border-radius: 0px; height: 2em; margin-left: -1em" [animated]="true" [value]="(player.exp - player.last_level_exp)/(player.next_level_exp - player.last_level_exp)*100" />
 
+                </div>
+            </div>
+            
+            <ng-container *ngComponentOutlet="getContent(); inputs: inputs; injector: updatePlayerInfoInjector"/>
         </div>
+
 
 
     </div> 
