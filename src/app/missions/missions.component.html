@@ -7,7 +7,7 @@
 <div class="container-fluid w-100 d-flex flex-column flex-lg-row" style="height: 75vh" *ngIf="!loading"
     [ngClass]="{'flex-xl-column': condensed == true}">
 
-    <div *ngIf="condensed==false" class="flex-fill">
+    <div *ngIf="condensed==false" [ngClass]="{'flex-fill': !narrowScreen}">
         <h4 class="mt-1">Annoucements</h4>
         <div *ngIf="_player.is_guest == true">
             <ngb-alert [type]="'warning'" [dismissible]="false" class="mt-2 p-2 px-3" >
@@ -41,7 +41,7 @@
 
     </div>
     
-    <div style="min-width: 25%">
+    <div style="min-width: 25%" [ngClass]="{'flex-fill': narrowScreen}">
         <h4 class="mt-1">Missions</h4>
         <div class="alert alert-light p-2" role="alert" *ngFor="let mission of missionList">
             <div class="d-flex justify-content-between">

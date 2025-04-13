@@ -110,20 +110,40 @@
         <div class="z-0 w-100">
             <div class="bg-body-tertiary container-fluid">
                 <div class="d-flex align-items-center">
-                    <div class="" *ngIf="narrowScreen" (click)="showPills()">
+                    <div class="bg-info-subtle rounded me-2" *ngIf="narrowScreen" (click)="showPills()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
                         </svg>
                     </div>
                     <div class="my-1 py-2 flex-fill d-flex">
-                        <span class="position-absolute py-1 ps-1 pe-2 bg-info-subtle rounded-pill d-inline-flex justify-content-between me-2 z-1" [@fade]="showEggChange ? 'shown' : 'hidden'" style="max-width: 5em; width: 33%; top: 3em">
-                            <span>
-                                🥚
+                        <!-- [@fade]="showAppleChange ? 'shown' : 'hidden'" -->
+                        <div class="position-absolute z-1 w-100" style="top: 3em">
+                            <span class="py-1 ps-1 pe-2 bg-info-subtle rounded-pill d-inline-flex justify-content-between me-2 z-1" [@fade]="showEggChange ? 'shown' : 'hidden'" style="max-width: 5em; width: 33%;">
+                                <span>
+                                    🥚
+                                </span>
+                                <span>
+                                    {{eggChange}}
+                                </span>
                             </span>
-                            <span>
-                                {{eggChange}}
+                            <span class="py-1 ps-1 pe-2 bg-info-subtle rounded-pill d-inline-flex justify-content-between me-2 z-1"  [@fade]="showFeatherChange ? 'shown' : 'hidden'" style="max-width: 5em; width: 33%; top: 3em">
+                                <span>
+                                    🪶
+                                </span>
+                                <span>
+                                    {{featherChange}}
+                                </span>
                             </span>
-                        </span>
+                            <span class="py-1 ps-1 pe-2 bg-info-subtle rounded-pill d-inline-flex justify-content-between me-2 z-1" [@fade]="showAppleChange ? 'shown' : 'hidden'" style="max-width: 5em; width: 33%; top: 3em">
+                                <span>
+                                    🍎
+                                </span>
+                                <span>
+                                    {{appleChange}}
+                                </span>
+                            </span>
+                        </div>
+                        
                         <span class="py-1 ps-1 pe-2 bg-body rounded-pill d-inline-flex justify-content-between me-2" style="max-width: 5em; width: 33%">
                             <span>
                                 🥚
@@ -132,14 +152,7 @@
                                 {{player?.eggs}}
                             </span>
                         </span>
-                        <span class="position-absolute py-1 ps-1 pe-2 bg-info-subtle rounded-pill d-inline-flex justify-content-between me-2 z-1" [@fade]="showFeatherChange ? 'shown' : 'hidden' " style="max-width: 5em; width: 33%; top: 3em">
-                            <span>
-                                🪶
-                            </span>
-                            <span>
-                                {{featherChange}}
-                            </span>
-                        </span>
+
                         <span class="py-1 ps-1 pe-2 bg-body rounded-pill d-inline-flex justify-content-between me-2" style="max-width: 5em; width: 33%">
                             <span>
                                 🪶
@@ -147,14 +160,8 @@
                             <span>
                                 {{player?.summons}}
                             </span>
-                        </span><span class="position-absolute py-1 ps-1 pe-2 bg-info-subtle rounded-pill d-inline-flex justify-content-between me-2 z-1" [@fade]="showAppleChange ? 'shown' : 'hidden'" style="max-width: 5em; width: 33%; top: 3em">
-                            <span>
-                                🍎
-                            </span>
-                            <span>
-                                {{appleChange}}
-                            </span>
                         </span>
+
                         <span class="py-1 ps-1 pe-2 bg-body rounded-pill d-inline-flex justify-content-between" style="max-width: 5em; width: 33%">
                             <span>
                                 🍎

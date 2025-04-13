@@ -14,6 +14,8 @@ import { Player } from '../interfaces/player';
 export class MissionsComponent {
   public missionList: Mission[] = [];
   public loading: boolean = true;
+  public narrowScreen: boolean = false;
+
   @Input() public condensed: boolean = false;
 
   public _player: Player = {
@@ -56,6 +58,9 @@ export class MissionsComponent {
 
   constructor(@Inject('updatePlayerInfo') public updatePlayerData: () => void) {
     this.getMissions();
+    if (window.innerWidth < 576 || navigator.userAgent.includes("Mobile")) {
+      this.narrowScreen = true;
+    }
   }
 
 }
