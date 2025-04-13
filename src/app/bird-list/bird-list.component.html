@@ -7,15 +7,16 @@
 <div class="container-fluid d-flex" *ngIf="!loading">
     <div class="flex-grow w-100" style="min-width: 75%">
         <h4 class="mt-1" *ngIf="!isMobile">Farm</h4>
-        <ul class="my-1 d-flex justify-content-between nav nav-pills" *ngIf="isMobile">
+        <ul class="my-1 pt-1 d-flex justify-content-between nav nav-pills align-items-center" *ngIf="isMobile">
             <li class="nav-item">
-                <a class="nav-link" [ngClass]="{'active': activeTab == 'farm'}" (click)="setActiveTab('farm')">Farm</a>
+                <a class="nav-link p-2" [ngClass]="{'active': activeTab == 'farm'}" (click)="setActiveTab('farm')">Farm</a>
             </li>
-            <div class="d-flex justify-content-between p-0 mt-1" *ngIf="activeTab == 'inventory'">
-                <ngb-pagination class="" [collectionSize]="birdList.length" [pageSize]="paginationElements" [maxSize]="5" [(page)]="currentPage" [directionLinks]="false" class="me-2"></ngb-pagination>
+            <div class="d-flex justify-content-between align-items-center" *ngIf="activeTab == 'inventory'">
+                <ngb-pagination class=" "size="sm" [collectionSize]="birdList.length" [pageSize]="paginationElements" [maxSize]="isMobile ? 1 : 5" [(page)]="currentPage" [directionLinks]="isMobile" class="me-2"></ngb-pagination>
     
                 <div ngbDropdown class="d-inline-block" placement="bottom-end">
-                    <button type="button" class="btn btn-outline-primary text-end" id="dropdownBasic1" style="width: 6em" ngbDropdownToggle>
+                    <button type="button" class="btn btn-outline-primary text-end ps-2"
+                        id="dropdownBasic1" style="width: 5em" ngbDropdownToggle style="font-size: 100%">
                         {{sortOrder}}
                     </button>
                     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
@@ -26,7 +27,7 @@
                 </div>
             </div>
             <li class="nav-item" *ngIf="activeTab != 'inventory'">
-                <a class="nav-link" [ngClass]="{'active': activeTab == 'inventory'}" (click)="setActiveTab('inventory')">Inventory</a>
+                <a class="nav-link p-2" [ngClass]="{'active': activeTab == 'inventory'}" (click)="setActiveTab('inventory')">Inventory</a>
             </li>
         </ul>
         <div class="row overflow-auto gy-0 gy-lg-1 gy-xl-2 gx-0 gx-lg-1 gx-xl-2 row-cols-2 row-cols-sm-3 row-cols-lg-6 row-cols-xl-6"

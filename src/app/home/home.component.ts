@@ -81,6 +81,7 @@ export class HomeComponent implements OnInit {
   _active: string | null = 'missions';
   expand_pills = false;
   public narrowScreen: boolean = false;
+  public isMobile: boolean = false;
   inputs: any = { value: this._active };
   public player: Player = {
     user: {
@@ -123,6 +124,10 @@ export class HomeComponent implements OnInit {
 
     if (window.innerWidth < 576 || navigator.userAgent.includes("Mobile")) {
       this.narrowScreen = true;
+    }
+
+    if (navigator.userAgent.includes("Mobile")) {
+      this.isMobile = true;
     }
   }
 

@@ -1,4 +1,4 @@
-<div data-bs-theme="dark" class="bg-body text-body vh-100">
+<div data-bs-theme="dark" class="bg-body text-body vh-100" [ngStyle]="{'font-size': isMobile ? 'smaller' : '' }">
     <style>
         .custom-pills .active, .custom-pills .focus {
             background-color: rgba(135, 135, 135, 0.393) !important;
@@ -19,10 +19,6 @@
                     <div [hidden]="!expand_pills" class="text-truncate p-1">
                         🪿Goose Farmer
                     </div>
-                </button>
-
-                <button type="button" *ngIf="narrowScreen" class="btn text-start m-1" [@show]="expand_pills ? 'shown' : 'hidden'" style="border: none">
-
                 </button>
 
                 <ng-container ngbNavItem="missions">
@@ -55,45 +51,56 @@
         <div [ngStyle]="{'min-width.em': narrowScreen ? '0' : '3.5' }" class="h-100" *ngIf="narrowScreen">
             <div class="h-100 position-absolute d-flex z-1">
                 <div ngbNav #nav="ngbNav" [(activeId)]="active"
-                    class="nav-pills custom-pills flex-column bg-body-secondary h-100 position-absolute overflow-hidden"
+                    class="nav-pills custom-pills d-flex flex-column justify-content-between bg-body-secondary h-100 position-absolute overflow-hidden pb-3"
                     orientation="horizontal"
                     (mouseenter)="showPills()"
                     (mouseleave)="hidePills()"
                     [@appear]="expand_pills ? 'shown' : 'hidden'"
                     >
-                    
-                    <button type="button" class="btn text-start m-1" style="border: none">
-                        <div class="text-truncate p-1" (click)="hidePills()">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                            </svg>
-                        </div>
-                    </button>
 
-                    <ng-container ngbNavItem="missions">
-                        <button ngbNavLink class="m-1 text-start" [@show]="expand_pills ? 'shown' : 'hidden'">
-                            <div [hidden]="expand_pills">🏠</div>
-                            <div [hidden]="!expand_pills" class="text-truncate">
-                                🏠Home
+                    <div class="pe-2">
+                        <button type="button" class="btn text-start m-1" style="border: none">
+                            <div class="text-truncate p-1" (click)="hidePills()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                                </svg>
                             </div>
                         </button>
-                    </ng-container>
-                    <ng-container ngbNavItem="birdList">
-                        <button ngbNavLink class="m-1 text-start" [@show]="expand_pills ? 'shown' : 'hidden'">
-                            <div [hidden]="expand_pills">🪺</div>
-                            <div [hidden]="!expand_pills" class="text-truncate">
-                                🪺Farm
-                            </div>
-                        </button>
-                    </ng-container>
-                    <ng-container ngbNavItem="summonBird">
-                        <button ngbNavLink class="m-1 text-start" [@show]="expand_pills ? 'shown' : 'hidden'">
-                            <div [hidden]="expand_pills">🪶</div>
-                            <div [hidden]="!expand_pills"  class="text-truncate">
-                                🪶Summon
-                            </div>
-                        </button>
-                    </ng-container>
+    
+                        <ng-container ngbNavItem="missions">
+                            <button ngbNavLink class="m-1 text-start w-100">
+                                <div [hidden]="expand_pills">🏠</div>
+                                <div [hidden]="!expand_pills" class="text-truncate">
+                                    🏠Home
+                                </div>
+                            </button>
+                        </ng-container>
+                        <ng-container ngbNavItem="birdList">
+                            <button ngbNavLink class="m-1 text-start w-100">
+                                <div [hidden]="expand_pills">🪺</div>
+                                <div [hidden]="!expand_pills" class="text-truncate">
+                                    🪺Farm
+                                </div>
+                            </button>
+                        </ng-container>
+                        <ng-container ngbNavItem="summonBird">
+                            <button ngbNavLink class="m-1 text-start w-100">
+                                <div [hidden]="expand_pills">🪶</div>
+                                <div [hidden]="!expand_pills"  class="text-truncate">
+                                    🪶Summon
+                                </div>
+                            </button>
+                        </ng-container>
+                    </div>
+
+
+
+
+                    <div class="ms-auto py-1 container-fluid d-flex flex-column align-items-end">
+                        <a class="m-0 py-2" (click)="signOut()" style="text-decoration:none">Log Out😢</a>
+                        <a class="m-0 py-2" (click)="open(content)" *ngIf="player.is_guest == true" style="text-decoration:none">Register✏️</a>
+                        <div class="m-0 py-2 text-secondary text-truncate">{{player.user.username}}👤</div>
+                    </div>
                 </div>
                 <div class="h-100 vw-100 flex-fill" *ngIf="expand_pills" (click)="hidePills()" style="background-color: rgba(0,0,0,0.3)">
                 </div>
